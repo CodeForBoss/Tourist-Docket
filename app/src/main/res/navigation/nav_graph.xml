@@ -9,5 +9,22 @@
     <fragment
         android:id="@+id/home_frag"
         android:name="com.example.touristpark.view.HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action android:id="@+id/home_frag_to_sign_up_frag"
+            app:destination="@id/signup_frag"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/signup_frag"
+        android:name="com.example.touristpark.view.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up"
+        >
+        <action
+            android:id="@+id/signup_frag_to_home_frag"
+            app:destination="@+id/home_frag"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            />
+
+    </fragment>
 </navigation>
