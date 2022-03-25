@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -28,6 +30,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private int REQUEST_PERMISSION = 103;
     private AlertDialog.Builder builder;
+    private NavHostFragment navHostFragment;
+    private NavController navController;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
