@@ -59,6 +59,7 @@
               app:cardElevation="4dp"
               >
               <EditText
+                  android:id="@+id/descriptionId"
                   android:fontFamily="sans-serif"
                   android:padding="3dp"
                   android:layout_width="match_parent"

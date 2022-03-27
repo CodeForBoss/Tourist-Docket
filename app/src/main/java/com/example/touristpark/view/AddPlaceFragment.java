@@ -1,24 +1,33 @@
 package com.example.touristpark.view;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.touristpark.databinding.FragmentAddPlaceBinding;
 
 import java.util.List;
@@ -26,6 +35,9 @@ import java.util.Locale;
 
 public class AddPlaceFragment extends Fragment implements LocationListener {
     private final int REQUEST_PERMISSION = 103;
+    private static final int IMAGE_REQUEST = 1;
+    Uri imguri;
+    boolean isImageSelected = false;
     private FragmentAddPlaceBinding binding;
     private LocationManager locationManager;
 
@@ -51,12 +63,50 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
             binding.selectImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                      openChooseFile();
+                }
+            });
+            binding.okId.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkValidation();
 
                 }
             });
     }
+    private String getFileExtention(Uri imageUrl){
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(imageUrl));
+    }
+    private void openChooseFile() {
 
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,IMAGE_REQUEST);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==IMAGE_REQUEST && resultCode == RESULT_OK && data!=null&& data.getData()!=null) {
+            imguri = data.getData();
+            Glide.with(this).load(imguri).into(binding.selectImage);
+            isImageSelected = true;
+        }
+    }
+
+    private void checkValidation(){
+        if(!isImageSelected){
+            Toast.makeText(getContext(), "Please select image!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(binding.descriptionId.getText())){
+            binding.descriptionId.setError("This can't be empty");
+            return;
+        }
+    }
     private void checkPermission(){
         if(getActivity() !=null){
             if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
