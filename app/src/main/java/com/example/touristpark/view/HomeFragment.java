@@ -1,27 +1,19 @@
 package com.example.touristpark.view;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.database.DatabaseUtils;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.touristpark.R;
 import com.example.touristpark.databinding.FragmentHomeBinding;
@@ -30,8 +22,6 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private int REQUEST_PERMISSION = 103;
     private AlertDialog.Builder builder;
-    private NavHostFragment navHostFragment;
-    private NavController navController;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,31 +33,35 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
+        underLineText();
+        listeners();
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.home_menu,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.addPlaceId){
-                checkPermission();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void checkPermission(){
-        if(getActivity() !=null){
-            if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_PERMISSION);
-            } else {
-                showOptions();
+    private void listeners(){
+        binding.signupId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_sign_up_frag);
             }
-        }
+        });
+    }
+
+    private void underLineText(){
+        String signInText = binding.signInId.getText().toString();
+        String signUpText = binding.signupId.getText().toString();
+        String anonomousText = binding.anonomousId.getText().toString();
+
+        SpannableString signInTextSpanable = new SpannableString(signInText);
+        SpannableString singnUpTextSpanable = new SpannableString(signUpText);
+        SpannableString anonomousTextSpanable = new SpannableString(anonomousText);
+
+        signInTextSpanable.setSpan(new UnderlineSpan(),0,signInTextSpanable.length(),0);
+        singnUpTextSpanable.setSpan(new UnderlineSpan(),0, singnUpTextSpanable.length(),0);
+        anonomousTextSpanable.setSpan(new UnderlineSpan(),0,anonomousTextSpanable.length(),0);
+
+        binding.signInId.setText(signInTextSpanable);
+        binding.signupId.setText(singnUpTextSpanable);
+        binding.anonomousId.setText(anonomousTextSpanable);
     }
 
     @Override
@@ -75,7 +69,7 @@ public class HomeFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode == REQUEST_PERMISSION){
             if(grantResults.length!=0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                   showOptions();
+
             } else {
                  builder = new AlertDialog.Builder(getContext());
                  builder.setTitle("Location Permission Denied!");
@@ -92,25 +86,5 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-    private void showOptions(){
-        builder = new AlertDialog.Builder(getContext());
-        View view = getLayoutInflater().inflate(R.layout.choose_option,null);
-        builder.setView(view);
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        alertDialog.setCanceledOnTouchOutside(false);
-        view.findViewById(R.id.signUpId).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.home_frag_to_sign_up_frag);
-            }
-        });
-    }
 }

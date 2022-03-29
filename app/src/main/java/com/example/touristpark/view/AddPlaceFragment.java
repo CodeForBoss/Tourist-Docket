@@ -70,7 +70,6 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
                 @Override
                 public void onClick(View view) {
                     checkValidation();
-
                 }
             });
     }
