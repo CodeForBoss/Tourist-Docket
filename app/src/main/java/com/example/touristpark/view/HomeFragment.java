@@ -20,8 +20,7 @@ import com.example.touristpark.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
-    private int REQUEST_PERMISSION = 103;
-    private AlertDialog.Builder builder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,28 +62,4 @@ public class HomeFragment extends Fragment {
         binding.signupId.setText(singnUpTextSpanable);
         binding.anonomousId.setText(anonomousTextSpanable);
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == REQUEST_PERMISSION){
-            if(grantResults.length!=0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-            } else {
-                 builder = new AlertDialog.Builder(getContext());
-                 builder.setTitle("Location Permission Denied!");
-                 builder.setMessage("Without location permission\nyou can't add new tourist place");
-                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                     @Override
-                     public void onClick(DialogInterface dialogInterface, int i) {
-                         dialogInterface.dismiss();
-                     }
-                 });
-                 AlertDialog alertDialog = builder.create();
-                 alertDialog.show();
-                 alertDialog.setCanceledOnTouchOutside(false);
-            }
-        }
-    }
-
 }

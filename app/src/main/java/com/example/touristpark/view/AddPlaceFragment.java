@@ -3,8 +3,11 @@ package com.example.touristpark.view;
 import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -30,16 +33,19 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.touristpark.databinding.FragmentAddPlaceBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class AddPlaceFragment extends Fragment implements LocationListener {
-    private final int REQUEST_PERMISSION = 103;
+    private final int REQUEST_PERMISSION = 104;
     private static final int IMAGE_REQUEST = 1;
-    Uri imguri;
+    ArrayList<Uri> imageUri = new ArrayList<>();
     boolean isImageSelected = false;
     private FragmentAddPlaceBinding binding;
     private LocationManager locationManager;
+    private boolean isGPSEnable = false;
+    private boolean isNetworkEnable = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,27 +66,23 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     }
 
     private void listeners(){
-            binding.selectImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                      openChooseFile();
-                }
-            });
             binding.okId.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     checkValidation();
                 }
             });
-    }
-    private String getFileExtention(Uri imageUrl){
-        ContentResolver contentResolver = getActivity().getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(imageUrl));
+            binding.uploadImageId.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openChooseFile();
+                }
+            });
     }
     private void openChooseFile() {
 
         Intent intent = new Intent();
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,IMAGE_REQUEST);
@@ -89,10 +91,37 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==IMAGE_REQUEST && resultCode == RESULT_OK && data!=null&& data.getData()!=null) {
-            imguri = data.getData();
-            Glide.with(this).load(imguri).into(binding.selectImage);
+        if(requestCode==IMAGE_REQUEST && resultCode == RESULT_OK && data!=null) {
             isImageSelected = true;
+            if(data.getClipData()!=null){
+                binding.selectImage.setVisibility(View.GONE);
+                binding.multipleImageViewId.setVisibility(View.VISIBLE);
+                ClipData mClipData = data.getClipData();
+                int len = data.getClipData().getItemCount();
+                for(int i = 0; i< len; i++){
+                    Uri mImageUri = data.getClipData().getItemAt(i).getUri();
+                    if(i<4){
+                        if(i==0){
+                            Glide.with(this).load(mImageUri).into(binding.showPicId1);
+                        } else if(i==1){
+                            Glide.with(this).load(mImageUri).into(binding.showPicId2);
+                        } else if(i==2){
+                            Glide.with(this).load(mImageUri).into(binding.showPicId3);
+                        } else if(i==3){
+                            Glide.with(this).load(mImageUri).into(binding.showPicId4);
+                        }
+                        imageUri.add(mImageUri);
+                    }
+                }
+            } else {
+                binding.multipleImageViewId.setVisibility(View.GONE);
+                binding.selectImage.setVisibility(View.VISIBLE);
+                Uri mImageUri = data.getData();
+                imageUri.add(mImageUri);
+                Glide.with(this).load(mImageUri).into(binding.selectImage);
+            }
+        } else {
+            isImageSelected = false;
         }
     }
 
@@ -121,22 +150,69 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
         if(requestCode == REQUEST_PERMISSION){
             if(grantResults.length!=0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 getLocation();
+            } else {
+                AlertDialog.Builder builder;
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Location Permission Denied!");
+                builder.setMessage("Without location permission\nyou can't register new place");
+                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                alertDialog.setCanceledOnTouchOutside(false);
             }
+        } else {
+            AlertDialog.Builder builder;
+            builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Location Permission Denied!");
+            builder.setMessage("Without location permission\nyou can't register new place");
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            alertDialog.setCanceledOnTouchOutside(false);
         }
     }
 
     public void getLocation() {
-        try {
-           if(getContext()!=null){
-               locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-               if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                   return;
-               }
-               locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
-           }
-
+        try{
+            isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         }catch (Exception e){
-             e.printStackTrace();
+
+        }
+        try{
+            isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        }catch (Exception e){
+
+        }
+        if(!isGPSEnable && !isNetworkEnable){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Attention!");
+            builder.setMessage("GPS or Network is not enable");
+            builder.setPositiveButton(android.R.string.ok,null);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            alertDialog.setCanceledOnTouchOutside(false);
+        }
+        if(isGPSEnable){
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+        }
+        if(isNetworkEnable){
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,5000,5,this);
         }
     }
     @Override
@@ -146,7 +222,7 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
                String address = addresses.get(0).getAddressLine(0);
                binding.progressId.setVisibility(View.GONE);
-               binding.locationId.setText(address);
+               binding.locationId.setText("Location: "+address);
                binding.locationId.setVisibility(View.VISIBLE);
                binding.okId.setVisibility(View.VISIBLE);
                Log.d("anr", "onLocationChanged: called");

@@ -15,12 +15,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageRelativeLayout">
-
                 <ImageView
+                    android:visibility="visible"
                     android:id="@+id/selectImage"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -28,26 +24,123 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/rectangle_shape"
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="3dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/default_image" />
-
-                <ImageView
+            <LinearLayout
+                android:id="@+id/multipleImageViewId"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:visibility="gone"
+                android:layout_margin="10dp"
+                >
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/delete_icon"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:id="@+id/showPicId1"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="fitXY"
+                        />
+                    <ImageView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/showPicId3"
+                        android:scaleType="fitXY"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+                    <ImageView
+                      android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/showPicId2"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="fitXY"
+                        />
+                    <ImageView
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/showPicId4"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="fitXY"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:text="Upload Image"
+                    android:textAllCaps="false"
+                    android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentTop="true"
-                    android:id="@+id/deleteImage"
-                    android:layout_alignEnd="@+id/selectImage"
-                    android:visibility="gone"
-                     />
-
-            </RelativeLayout>
+                    android:layout_marginBottom="20dp"
+                    android:textSize="14sp"
+                    android:background="@color/teal_700"
+                    android:textColor="@color/white"
+                    android:id="@+id/uploadImageId"
+                    android:gravity="center"
+                    />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="14dp"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"
+                android:id="@+id/locationId"
+                android:visibility="gone"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/progressId"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                >
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    />
+                <TextView
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:text="Please wait..\nDiscovering your location"
+                    android:layout_gravity="center_horizontal"
+                    />
+            </LinearLayout>
           <com.google.android.material.card.MaterialCardView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -76,30 +169,62 @@
                   android:background="@null"
                   />
           </com.google.android.material.card.MaterialCardView>
-
-            <androidx.appcompat.widget.AppCompatRatingBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:minHeight="10dp"
-                android:numStars="5"
-                android:clickable="true"
-                android:focusable="true"
-                android:rating="3" />
-            <TextView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:textSize="14dp"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif"
-                android:id="@+id/locationId"
-                android:visibility="gone"
-                />
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="4dp"
+                >
+                <EditText
+                    android:id="@+id/commentId"
+                    android:fontFamily="sans-serif"
+                    android:padding="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Comment"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:minLines="4"
+                    android:textSize="14sp"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"
+                    android:autoLink="all"
+                    android:linksClickable="true"
+                    android:background="@null"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rate this place"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"
+                    android:padding="5dp"
+                    android:fontFamily="sans-serif"
+                    android:layout_gravity="center_vertical"
+                    />
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:scaleY="0.8"
+                    android:scaleX="0.8"
+                    android:numStars="5"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:rating="3" />
+            </LinearLayout>
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,32 +240,6 @@
                 android:clickable="true"
                 android:focusable="true"
                />
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical"
-               android:id="@+id/progressId"
-               android:layout_marginTop="40dp"
-               android:layout_marginRight="10dp"
-               android:layout_marginLeft="10dp"
-               android:layout_marginBottom="10dp"
-               >
-               <ProgressBar
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="center_horizontal"
-                   />
-               <TextView
-                   android:padding="5dp"
-                   android:textAlignment="center"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/black"
-                   android:textSize="12sp"
-                   android:text="Please wait..\nDiscovering your location"
-                   android:layout_gravity="center_horizontal"
-                   />
-           </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
