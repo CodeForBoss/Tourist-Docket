@@ -223,6 +223,7 @@
                     android:numStars="5"
                     android:clickable="true"
                     android:focusable="true"
+                    android:id="@+id/ratingId"
                     android:rating="3" />
             </LinearLayout>
             <androidx.appcompat.widget.AppCompatButton

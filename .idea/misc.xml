@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/choose_option.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_add_place.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home_user.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.33" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.15364583333333334" />

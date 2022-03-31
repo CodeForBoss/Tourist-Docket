@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ClipData;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,16 +21,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.touristpark.databinding.FragmentAddPlaceBinding;
+import com.example.touristpark.repository.model.Comment;
+import com.example.touristpark.repository.model.Place;
+import com.example.touristpark.repository.model.User;
+import com.example.touristpark.viewmodel.TouristParkViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,7 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     private LocationManager locationManager;
     private boolean isGPSEnable = false;
     private boolean isNetworkEnable = false;
+    private TouristParkViewModel touristParkViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +62,7 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        touristParkViewModel = new ViewModelProvider(requireActivity()).get(TouristParkViewModel.class);
         if(getContext()!=null){
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         }
@@ -66,21 +71,20 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     }
 
     private void listeners(){
-            binding.okId.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    checkValidation();
+            binding.okId.setOnClickListener(view -> {
+                if(checkValidation()){
+                    User user = new User("anisur","anisur@gmail.com","43432","diu","hiaodijf");
+                    Comment comment = new Comment(user,binding.commentId.getText().toString());
+                    ArrayList<Comment> allComment = new ArrayList<>();
+                    allComment.add(comment);
+                    Place place = new Place(allComment,binding.descriptionId.getText().toString(),binding.locationId.getText().toString(),
+                            null,"anisur@gmail.com",binding.ratingId.getRating());
+                    touristParkViewModel.registerNewPlace(place,requireActivity(),imageUri);
                 }
             });
-            binding.uploadImageId.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openChooseFile();
-                }
-            });
+            binding.uploadImageId.setOnClickListener(view -> openChooseFile());
     }
     private void openChooseFile() {
-
         Intent intent = new Intent();
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
         intent.setType("image/*");
@@ -96,7 +100,6 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
             if(data.getClipData()!=null){
                 binding.selectImage.setVisibility(View.GONE);
                 binding.multipleImageViewId.setVisibility(View.VISIBLE);
-                ClipData mClipData = data.getClipData();
                 int len = data.getClipData().getItemCount();
                 for(int i = 0; i< len; i++){
                     Uri mImageUri = data.getClipData().getItemAt(i).getUri();
@@ -125,15 +128,22 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
         }
     }
 
-    private void checkValidation(){
+    private boolean checkValidation(){
         if(!isImageSelected){
             Toast.makeText(getContext(), "Please select image!", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
         if(TextUtils.isEmpty(binding.descriptionId.getText())){
             binding.descriptionId.setError("This can't be empty");
-            return;
+            binding.descriptionId.requestFocus();
+            return false;
         }
+        if (TextUtils.isEmpty(binding.commentId.getText())){
+            binding.commentId.setError("This can't be empty!");
+            binding.descriptionId.requestFocus();
+            return false;
+        }
+        return true;
     }
     private void checkPermission(){
         if(getActivity() !=null){
@@ -186,12 +196,12 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
         try{
             isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         }catch (Exception e){
-
+           e.printStackTrace();
         }
         try{
             isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         if(!isGPSEnable && !isNetworkEnable){
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
