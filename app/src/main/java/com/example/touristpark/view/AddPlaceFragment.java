@@ -96,12 +96,13 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==IMAGE_REQUEST && resultCode == RESULT_OK && data!=null) {
+            imageUri.clear();
             isImageSelected = true;
             if(data.getClipData()!=null){
                 binding.selectImage.setVisibility(View.GONE);
                 binding.multipleImageViewId.setVisibility(View.VISIBLE);
                 int len = data.getClipData().getItemCount();
-                for(int i = 0; i< len; i++){
+                for(int i = 0; i < len; i++){
                     Uri mImageUri = data.getClipData().getItemAt(i).getUri();
                     if(i<4){
                         if(i==0){
