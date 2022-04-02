@@ -6,9 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,16 +23,15 @@ import com.example.touristpark.view.adapter.RecyclerViewAdapter;
 import com.example.touristpark.viewmodel.TouristParkViewModel;
 
 import java.util.ArrayList;
-import java.util.PrimitiveIterator;
 
 public class HomeUserFragment extends Fragment implements ItemClickListener {
     private FragmentHomeUserBinding fragmentHomeUserBinding;
-    private ArrayList<Place> placeList = new ArrayList<>();
+    private final ArrayList<Place> placeList = new ArrayList<>();
     private TouristParkViewModel touristParkViewModel;
     private RecyclerViewAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentHomeUserBinding = FragmentHomeUserBinding.inflate(inflater,container,false);
@@ -38,6 +41,7 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
         touristParkViewModel = new ViewModelProvider(requireActivity()).get(TouristParkViewModel.class);
         setUpRecyclerView();
         observers();
@@ -59,6 +63,24 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
 
     @Override
     public void singleItemClick(Place place) {
+         Bundle bundle = new Bundle();
+         bundle.putParcelable("singleParcel",place);
+        Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.homeUser_frag_to_ItemDetail_frag,bundle);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.home_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.registerId:
+            case R.id.profileId:
+            case R.id.logoutId:
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

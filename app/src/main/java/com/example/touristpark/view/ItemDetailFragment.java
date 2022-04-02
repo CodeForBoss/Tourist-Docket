@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 
 import com.example.touristpark.R;
 import com.example.touristpark.databinding.FragmentItemDetailBinding;
+import com.example.touristpark.repository.model.Place;
 
 public class ItemDetailFragment extends Fragment {
     private FragmentItemDetailBinding binding;
+    private Place place = new Place();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,5 +28,12 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        checkBundle();
+    }
+
+    private void checkBundle() {
+        Bundle bundle = this.getArguments();
+        place = bundle.getParcelable("singleParcel");
+        binding.profileLoacationId.setText(place.getLocation());
     }
 }

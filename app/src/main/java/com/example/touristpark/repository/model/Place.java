@@ -1,8 +1,11 @@
 package com.example.touristpark.repository.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Place {
+public class Place implements Parcelable {
     private ArrayList<Comment> allComments;
     private String descriptions, location, userEmail;
     private ArrayList<String> imageUri;
@@ -66,5 +69,15 @@ public class Place {
 
     public void setImageUri(ArrayList<String> imageUri) {
         this.imageUri = imageUri;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

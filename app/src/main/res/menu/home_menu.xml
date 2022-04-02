@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/addPlaceId"
-        android:title="Add Place"
-        android:icon="@drawable/add_icon"
+        android:id="@+id/registerId"
+        android:title="Register new place"
+        />
+    <item
+        android:id="@+id/profileId"
+        android:title="My Profile"
+        />
+    <item
+        android:id="@+id/logoutId"
+        android:title="Log out"
         />
 
 </menu>

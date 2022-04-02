@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/add_icon.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/rectangle_shape.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/round_shape.xml" value="0.158" />
         <entry key="app/src/main/res/layout/Item_row.xml" value="0.15364583333333334" />
@@ -17,7 +18,7 @@
         <entry key="app/src/main/res/layout/item.xml" value="0.18" />
         <entry key="app/src/main/res/layout/item_row.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/slider_item.xml" value="0.15364583333333334" />
-        <entry key="app/src/main/res/menu/home_menu.xml" value="0.15364583333333334" />
+        <entry key="app/src/main/res/menu/home_menu.xml" value="0.25" />
       </map>
     </option>
   </component>

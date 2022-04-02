@@ -46,6 +46,17 @@
         android:name="com.example.touristpark.view.HomeUserFragment"
         tools:layout="@layout/fragment_home_user"
         >
+          <action android:id="@+id/homeUser_frag_to_ItemDetail_frag"
+              app:destination="@id/ItemDetail_frag" />
+    </fragment>
+    <fragment
+        android:id="@+id/ItemDetail_frag"
+        android:name="com.example.touristpark.view.ItemDetailFragment"
+        tools:layout="@layout/fragment_item_detail">
 
+        <action android:id="@+id/ItemDetail_frag_to_homeUser_frag"
+            app:destination="@id/homeUser_frag"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

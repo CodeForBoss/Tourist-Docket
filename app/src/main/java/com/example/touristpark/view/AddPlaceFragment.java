@@ -4,7 +4,6 @@ import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -52,7 +51,7 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     private TouristParkViewModel touristParkViewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentAddPlaceBinding.inflate(inflater, container, false);
@@ -166,11 +165,8 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
                 builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Location Permission Denied!");
                 builder.setMessage("Without location permission\nyou can't register new place");
-                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
 
-                    }
                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
@@ -181,11 +177,8 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
             builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Location Permission Denied!");
             builder.setMessage("Without location permission\nyou can't register new place");
-            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+            builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
 
-                }
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();

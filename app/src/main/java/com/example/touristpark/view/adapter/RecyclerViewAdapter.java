@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -35,6 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
+        Place place = allPlaces.get(position);
        holder.locationShow.setText(allPlaces.get(position).getLocation());
        holder.descriptionShow.setText(allPlaces.get(position).getDescriptions());
        ArrayList<SlideModel> allImages  = new ArrayList<>();
@@ -43,6 +45,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
            allImages.add(new SlideModel(imageUrl,null));
        }
        holder.imageSlider.setImageList(allImages);
+       holder.itemCardView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               itemClickListener.singleItemClick(place);
+           }
+       });
     }
 
     @Override
@@ -54,11 +62,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         TextView locationShow, descriptionShow;
         ImageSlider imageSlider;
+        CardView itemCardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             locationShow = itemView.findViewById(R.id.locationshowId);
             descriptionShow = itemView.findViewById(R.id.descriptionShowId);
             imageSlider = itemView.findViewById(R.id.image_slider);
+            itemCardView = itemView.findViewById(R.id.itemcardId);
         }
     }
 }
