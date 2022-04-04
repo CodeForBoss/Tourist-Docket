@@ -73,11 +73,11 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
             binding.okId.setOnClickListener(view -> {
                 if(checkValidation()){
                     User user = new User("anisur","anisur@gmail.com","43432","diu","hiaodijf");
-                    Comment comment = new Comment(user,binding.commentId.getText().toString());
+                    Comment comment = new Comment(user,binding.commentId.getText().toString(),binding.ratingId.getRating());
                     ArrayList<Comment> allComment = new ArrayList<>();
                     allComment.add(comment);
                     Place place = new Place(allComment,binding.descriptionId.getText().toString(),binding.locationId.getText().toString(),
-                            null,"anisur@gmail.com",binding.ratingId.getRating());
+                            null,"anisur@gmail.com");
                     touristParkViewModel.registerNewPlace(place,requireActivity(),imageUri);
                 }
             });

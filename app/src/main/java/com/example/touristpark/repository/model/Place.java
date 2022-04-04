@@ -9,14 +9,12 @@ public class Place implements Parcelable {
     private ArrayList<Comment> allComments;
     private String descriptions, location, userEmail;
     private ArrayList<String> imageUri;
-    private float rating;
 
-    public Place(ArrayList<Comment> allComments, String descriptions, String location, ArrayList<String> imageUri,String userEmail, float rating) {
+    public Place(ArrayList<Comment> allComments, String descriptions, String location, ArrayList<String> imageUri,String userEmail) {
         this.allComments = allComments;
         this.descriptions = descriptions;
         this.location = location;
         this.imageUri = imageUri;
-        this.rating = rating;
         this.userEmail = userEmail;
     }
     public Place() {
@@ -45,14 +43,6 @@ public class Place implements Parcelable {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
     }
 
     public String getUserEmail() {
