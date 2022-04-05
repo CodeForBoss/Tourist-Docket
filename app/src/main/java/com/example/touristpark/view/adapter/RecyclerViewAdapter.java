@@ -1,5 +1,6 @@
 package com.example.touristpark.view.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.touristpark.R;
+import com.example.touristpark.repository.model.Comment;
 import com.example.touristpark.repository.model.Place;
 import com.example.touristpark.view.ItemClickListener;
+import com.example.touristpark.view.ItemDetailFragment;
 
 import java.util.ArrayList;
 
@@ -38,7 +41,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         Place place = allPlaces.get(position);
        holder.locationShow.setText(allPlaces.get(position).getLocation());
-       holder.descriptionShow.setText(allPlaces.get(position).getDescriptions());
        ArrayList<SlideModel> allImages  = new ArrayList<>();
        for(int i = 0; i<allPlaces.get(position).getImageUri().size(); i++){
            String imageUrl = allPlaces.get(position).getImageUri().get(i);
@@ -60,13 +62,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView locationShow, descriptionShow;
+        TextView locationShow;
         ImageSlider imageSlider;
         CardView itemCardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             locationShow = itemView.findViewById(R.id.locationshowId);
-            descriptionShow = itemView.findViewById(R.id.descriptionShowId);
             imageSlider = itemView.findViewById(R.id.image_slider);
             itemCardView = itemView.findViewById(R.id.itemcardId);
         }

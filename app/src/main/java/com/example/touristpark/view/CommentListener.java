@@ -1,5 +1,7 @@
 package com.example.touristpark.view;
 
-public interface CommentListener {
+import com.example.touristpark.repository.model.Comment;
 
+public interface CommentListener {
+    public void commentClick(Comment comment);
 }

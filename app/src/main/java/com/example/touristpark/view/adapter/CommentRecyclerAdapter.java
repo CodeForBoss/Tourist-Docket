@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +43,16 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Comment comment = allComments.get(position);
            Glide.with(context).load(comment.getUser().getProfileImageUri()).into(holder.userProfilePic);
+           holder.userRating.setRating(comment.getRating());
+           holder.userComment.setText(comment.getUserComment());
+           holder.userName.setText(comment.getUser().getName());
+           holder.commentCard.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   commentListener.commentClick(comment);
+               }
+           });
+
     }
 
     @Override
@@ -53,12 +64,14 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
          TextView userName,userComment;
          RatingBar userRating;
          ImageView userProfilePic;
+         CardView commentCard;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.showUserNameId);
             userComment = itemView.findViewById(R.id.showcommentId3);
             userRating = itemView.findViewById(R.id.showRatingId);
             userProfilePic = itemView.findViewById(R.id.showProfilePicId);
+            commentCard = itemView.findViewById(R.id.commentCardId);
         }
     }
 }

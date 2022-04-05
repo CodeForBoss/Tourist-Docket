@@ -36,22 +36,9 @@
               android:layout_height="wrap_content"
               android:textColor="@color/black"
               android:textAllCaps="false"
-              android:textSize="14sp"
-              android:layout_margin="5dp"
+              android:layout_margin="10dp"
               android:fontFamily="sans-serif"
               android:id="@+id/locationshowId"
-              android:ellipsize="end"
-              android:maxLines="2"
-              />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textColor="@color/black"
-              android:textAllCaps="false"
-              android:textSize="14sp"
-             android:layout_margin="5dp"
-              android:fontFamily="sans-serif"
-              android:id="@+id/descriptionShowId"
               android:ellipsize="end"
               android:maxLines="2"
               />
