@@ -1,6 +1,5 @@
 package com.example.touristpark.view.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.touristpark.R;
-import com.example.touristpark.repository.model.Comment;
 import com.example.touristpark.repository.model.Place;
 import com.example.touristpark.view.ItemClickListener;
-import com.example.touristpark.view.ItemDetailFragment;
 
 import java.util.ArrayList;
 

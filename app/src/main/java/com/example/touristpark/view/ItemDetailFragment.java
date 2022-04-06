@@ -17,11 +17,13 @@ import com.example.touristpark.databinding.FragmentItemDetailBinding;
 import com.example.touristpark.repository.model.Comment;
 import com.example.touristpark.repository.model.Place;
 import com.example.touristpark.view.adapter.CommentRecyclerAdapter;
+import com.example.touristpark.view.adapter.PagerAdapter;
 import com.example.touristpark.view.adapter.RecyclerViewAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-public class ItemDetailFragment extends Fragment implements CommentListener {
+public class ItemDetailFragment extends Fragment {
     private FragmentItemDetailBinding binding;
     private Place place = new Place();
     private CommentRecyclerAdapter adapter;
@@ -37,8 +39,30 @@ public class ItemDetailFragment extends Fragment implements CommentListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkBundle();
+        viewPagerSetup();
         setAllValues();
-        setUpRecyclerView();
+    }
+
+    private void viewPagerSetup() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("placeId",place);
+        PagerAdapter pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(),binding.tabLayoutId.getTabCount(),bundle);
+        binding.viewPagerShow.setAdapter(pagerAdapter);
+        binding.tabLayoutId.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                binding.viewPagerShow.setCurrentItem(tab.getPosition());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                binding.viewPagerShow.setCurrentItem(tab.getPosition());
+            }
+        });
     }
 
     private void setAllValues() {
@@ -49,24 +73,11 @@ public class ItemDetailFragment extends Fragment implements CommentListener {
             }
             binding.imageSlider2.setImageList(allImages);
             binding.locationshowId2.setText(place.getLocation());
-            binding.descriptionShowId2.setText(place.getDescriptions());
         }
     }
 
     private void checkBundle() {
         Bundle bundle = this.getArguments();
         place = bundle.getParcelable("singleParcel");
-    }
-
-    public void setUpRecyclerView(){
-        adapter = new CommentRecyclerAdapter(place.getAllComments(),this,getContext());
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        binding.commentRecyclerId.setLayoutManager(manager);
-        binding.commentRecyclerId.setAdapter(adapter);
-    }
-
-    @Override
-    public void commentClick(Comment comment) {
-
     }
 }

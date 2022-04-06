@@ -7,9 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".view.ItemDetailFragment">
 
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
       <LinearLayout
           android:layout_width="match_parent"
           android:orientation="vertical"
@@ -29,9 +26,9 @@
                   >
                   <com.denzcoskun.imageslider.ImageSlider
                       android:id="@+id/image_slider2"
-                      android:layout_width="wrap_content"
-                      android:layout_height="200dp"
-                      android:layout_margin="10dp"
+                      android:layout_width="match_parent"
+                      android:layout_height="180dp"
+                      android:layout_margin="5dp"
                       app:iss_auto_cycle="true"
                       app:iss_period="10000"
                       app:iss_delay="10000"
@@ -51,39 +48,37 @@
               android:fontFamily="sans-serif"
               android:id="@+id/locationshowId2"
               />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textColor="@color/black"
-              android:textAllCaps="false"
-              android:layout_margin="10dp"
-              android:fontFamily="sans-serif"
-              android:id="@+id/descriptionShowId2"
-              />
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
               android:background="#ff914d"
               />
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/black"
-              android:textAllCaps="false"
-              android:textSize="14sp"
-              android:text="Reviews"
-              android:layout_margin="5dp"
-              android:layout_gravity="center_horizontal"
-              />
-          <androidx.recyclerview.widget.RecyclerView
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_margin="5dp"
-              android:id="@+id/commentRecyclerId"
-              />
+         <com.google.android.material.tabs.TabLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/tabLayoutId"
+             android:layout_margin="5dp"
+             >
+             <com.google.android.material.tabs.TabItem
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Descriptions"
+                 android:id="@+id/showDescriptionId"
+                 />
+             <com.google.android.material.tabs.TabItem
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Reviews"
+                 android:id="@+id/showReviewId"
+                 />
+         </com.google.android.material.tabs.TabLayout>
+
+             <androidx.viewpager.widget.ViewPager
+                 android:id="@+id/viewPagerShow"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent" />
       </LinearLayout>
 
-  </ScrollView>
 
 </FrameLayout>
 </layout>
