@@ -5,20 +5,29 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.net.Uri;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
 import com.example.touristpark.R;
 import com.example.touristpark.repository.model.Place;
 import com.example.touristpark.repository.model.User;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FirebaseOperation {
     private FirebaseDatabase mDatabase;
@@ -26,6 +35,7 @@ public class FirebaseOperation {
     private StorageReference storageReference;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
+    Place getPlace = new Place();
 
     public void createNewUser(User user, Activity activity, Uri imageUri) {
         builder = new AlertDialog.Builder(activity);
@@ -127,6 +137,28 @@ public class FirebaseOperation {
                 }
             });
         }
+    }
+
+    public void addCommentToPlace(Place place){
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mDatabase.getReference("place");
+        mDatabaseReference.orderByChild("userEmail").equalTo(place.getUserEmail()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot ds : snapshot.getChildren()){
+                        Map newMap = new HashMap();
+                        newMap.put("allComments",place.getAllComments());
+                        ds.getRef().updateChildren(newMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }

@@ -47,7 +47,7 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
         observers();
     }
     public void setUpRecyclerView(){
-          adapter = new RecyclerViewAdapter(placeList,this);
+        adapter = new RecyclerViewAdapter(placeList,this);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         fragmentHomeUserBinding.recyclerId.setLayoutManager(manager);
         fragmentHomeUserBinding.recyclerId.setAdapter(adapter);

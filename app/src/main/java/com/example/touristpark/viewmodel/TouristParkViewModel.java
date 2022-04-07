@@ -37,6 +37,11 @@ public class TouristParkViewModel extends AndroidViewModel {
     public void registerNewPlace(Place place, Activity activity, ArrayList<Uri> imageUri){
         repository.registerNewPlace(place,activity, imageUri);
     }
+
+    public void addCommentToPlace(Place place){
+        repository.addUserComment(place);
+    }
+
     public void loadAllPlaces(){
         ArrayList<Place> getPlaces = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance();
@@ -44,6 +49,7 @@ public class TouristParkViewModel extends AndroidViewModel {
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                getPlaces.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Place place = dataSnapshot.getValue(Place.class);
                     getPlaces.add(place);

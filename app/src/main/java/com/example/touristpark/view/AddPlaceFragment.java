@@ -72,7 +72,7 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     private void listeners(){
             binding.okId.setOnClickListener(view -> {
                 if(checkValidation()){
-                    User user = new User("anisur","anisur@gmail.com","43432","diu","hiaodijf");
+                    User user = new User("anisur","anisur1@gmail.com","43432","diu","hiaodijf");
                     Comment comment = new Comment(user,binding.commentId.getText().toString(),binding.ratingId.getRating());
                     ArrayList<Comment> allComment = new ArrayList<>();
                     allComment.add(comment);

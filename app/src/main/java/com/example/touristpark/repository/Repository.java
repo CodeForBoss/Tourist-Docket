@@ -17,4 +17,8 @@ public class Repository {
     public void registerNewPlace(Place place, Activity activity, ArrayList<Uri> imageUri){
         firebaseOperation.registerNewPlace(place,activity,imageUri);
     }
+
+    public void addUserComment(Place place){
+        firebaseOperation.addCommentToPlace(place);
+    }
 }

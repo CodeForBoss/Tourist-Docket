@@ -1,32 +1,38 @@
 package com.example.touristpark.view;
 
+
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.touristpark.R;
 import com.example.touristpark.databinding.FragmentItemDetailBinding;
 import com.example.touristpark.repository.model.Comment;
 import com.example.touristpark.repository.model.Place;
+import com.example.touristpark.repository.model.User;
 import com.example.touristpark.view.adapter.CommentRecyclerAdapter;
-import com.example.touristpark.view.adapter.PagerAdapter;
-import com.example.touristpark.view.adapter.RecyclerViewAdapter;
-import com.google.android.material.tabs.TabLayout;
+import com.example.touristpark.viewmodel.TouristParkViewModel;
 
 import java.util.ArrayList;
 
-public class ItemDetailFragment extends Fragment {
+public class ItemDetailFragment extends Fragment implements CommentListener{
     private FragmentItemDetailBinding binding;
     private Place place = new Place();
     private CommentRecyclerAdapter adapter;
+    private TouristParkViewModel touristParkViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,29 +44,36 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        touristParkViewModel = new ViewModelProvider(requireActivity()).get(TouristParkViewModel.class);
         checkBundle();
-        viewPagerSetup();
         setAllValues();
+        setUpRecyclerView();
+        listeners();
     }
-
-    private void viewPagerSetup() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("placeId",place);
-        PagerAdapter pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(),binding.tabLayoutId.getTabCount(),bundle);
-        binding.viewPagerShow.setAdapter(pagerAdapter);
-        binding.tabLayoutId.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+    private void listeners(){
+        binding.descriptionBtnId.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                binding.viewPagerShow.setCurrentItem(tab.getPosition());
+            public void onClick(View view) {
+                if(binding.reviewsLayoutId.getVisibility() == View.VISIBLE){
+                    binding.reviewsLayoutId.setVisibility(View.GONE);
+                }
+                binding.descriptionsLayoutId.setVisibility(View.VISIBLE);
             }
+        });
+        binding.reviewButtonId.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
+            public void onClick(View view) {
+                if(binding.descriptionsLayoutId.getVisibility() == View.VISIBLE){
+                    binding.descriptionsLayoutId.setVisibility(View.GONE);
+                }
+                binding.reviewsLayoutId.setVisibility(View.VISIBLE);
             }
+        });
 
+        binding.addCommentBtnId.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                binding.viewPagerShow.setCurrentItem(tab.getPosition());
+            public void onClick(View view) {
+                addCommentAlertDialog();
             }
         });
     }
@@ -73,11 +86,62 @@ public class ItemDetailFragment extends Fragment {
             }
             binding.imageSlider2.setImageList(allImages);
             binding.locationshowId2.setText(place.getLocation());
+            binding.showDescriptionsId5.setText(place.getDescriptions());
         }
     }
 
     private void checkBundle() {
         Bundle bundle = this.getArguments();
         place = bundle.getParcelable("singleParcel");
+    }
+
+    private void setUpRecyclerView(){
+        adapter = new CommentRecyclerAdapter(place.getAllComments(),this,getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        binding.commentRecyclerId.setLayoutManager(manager);
+        binding.commentRecyclerId.setAdapter(adapter);
+    }
+
+    private void addCommentAlertDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View view = getLayoutInflater().inflate(R.layout.add_comment_layout,null);
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        alertDialog.setCanceledOnTouchOutside(false);
+        Button cancel = view.findViewById(R.id.cancelBtnId);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        Button okButton = view.findViewById(R.id.okBtnId);
+        EditText comments = view.findViewById(R.id.addcommentId);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(comments.getText())){
+                    comments.setError("Add a comment!");
+                    comments.requestFocus();
+                    return;
+                }
+                ArrayList<Comment> allComments = new ArrayList<>();
+                allComments.addAll(place.getAllComments());
+                User user =new User("anisur", "anisurhju","88843","4835784","asidei");
+                Comment comment = new Comment(user,comments.getText().toString(), 3.5F);
+                allComments.add(comment);
+                place.setAllComments(allComments);
+                touristParkViewModel.addCommentToPlace(place);
+                alertDialog.dismiss();
+                setUpRecyclerView();
+            }
+        });
+    }
+
+
+    @Override
+    public void commentClick(Comment comment) {
+
     }
 }

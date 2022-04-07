@@ -8,13 +8,14 @@
         <entry key="app/src/main/res/drawable/round_shape.xml" value="0.158" />
         <entry key="app/src/main/res/layout/Item_row.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/add_comment_layout.xml" value="0.22" />
         <entry key="app/src/main/res/layout/choose_option.xml" value="0.33" />
         <entry key="app/src/main/res/layout/comment_row.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_place.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_descritions.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home_user.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_item_detail.xml" value="0.15364583333333334" />
+        <entry key="app/src/main/res/layout/fragment_item_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_review.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.33" />
