@@ -63,19 +63,21 @@
 
               <androidx.appcompat.widget.AppCompatButton
                   android:id="@+id/descriptionBtnId"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
+                  android:layout_width="110dp"
+                  android:layout_height="40dp"
                   android:text="Descriptions"
+                  android:background="@drawable/round_shape"
                   android:textAllCaps="false"
                   android:textColor="@color/black" />
               <androidx.appcompat.widget.AppCompatButton
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
+                  android:layout_width="110dp"
+                  android:layout_height="40dp"
                   android:text="Reviews"
                   android:textColor="@color/black"
                   android:textAllCaps="false"
                   android:layout_marginLeft="80dp"
                   android:id="@+id/reviewButtonId"
+                  android:background="@drawable/rectangle_shape"
                   />
           </LinearLayout>
           <LinearLayout

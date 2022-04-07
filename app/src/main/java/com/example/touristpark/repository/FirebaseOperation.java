@@ -5,18 +5,15 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.net.Uri;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
 import com.example.touristpark.R;
 import com.example.touristpark.repository.model.Place;
 import com.example.touristpark.repository.model.User;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +32,6 @@ public class FirebaseOperation {
     private StorageReference storageReference;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
-    Place getPlace = new Place();
 
     public void createNewUser(User user, Activity activity, Uri imageUri) {
         builder = new AlertDialog.Builder(activity);

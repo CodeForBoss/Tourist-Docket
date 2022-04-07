@@ -31,10 +31,9 @@ import java.util.ArrayList;
 public class ItemDetailFragment extends Fragment implements CommentListener{
     private FragmentItemDetailBinding binding;
     private Place place = new Place();
-    private CommentRecyclerAdapter adapter;
     private TouristParkViewModel touristParkViewModel;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentItemDetailBinding.inflate(inflater,container,false);
@@ -51,31 +50,24 @@ public class ItemDetailFragment extends Fragment implements CommentListener{
         listeners();
     }
     private void listeners(){
-        binding.descriptionBtnId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(binding.reviewsLayoutId.getVisibility() == View.VISIBLE){
-                    binding.reviewsLayoutId.setVisibility(View.GONE);
-                }
-                binding.descriptionsLayoutId.setVisibility(View.VISIBLE);
+        binding.descriptionBtnId.setOnClickListener(view -> {
+            if(binding.reviewsLayoutId.getVisibility() == View.VISIBLE){
+                binding.reviewsLayoutId.setVisibility(View.GONE);
+                binding.reviewButtonId.setBackground(getResources().getDrawable(R.drawable.rectangle_shape));
             }
+            binding.descriptionsLayoutId.setVisibility(View.VISIBLE);
+            binding.descriptionBtnId.setBackground(getResources().getDrawable(R.drawable.round_shape));
         });
-        binding.reviewButtonId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(binding.descriptionsLayoutId.getVisibility() == View.VISIBLE){
-                    binding.descriptionsLayoutId.setVisibility(View.GONE);
-                }
-                binding.reviewsLayoutId.setVisibility(View.VISIBLE);
+        binding.reviewButtonId.setOnClickListener(view -> {
+            if(binding.descriptionsLayoutId.getVisibility() == View.VISIBLE){
+                binding.descriptionsLayoutId.setVisibility(View.GONE);
+                binding.descriptionBtnId.setBackground(getResources().getDrawable(R.drawable.rectangle_shape));
             }
+            binding.reviewsLayoutId.setVisibility(View.VISIBLE);
+            binding.reviewButtonId.setBackground(getResources().getDrawable(R.drawable.round_shape));
         });
 
-        binding.addCommentBtnId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addCommentAlertDialog();
-            }
-        });
+        binding.addCommentBtnId.setOnClickListener(view -> addCommentAlertDialog());
     }
 
     private void setAllValues() {
@@ -92,11 +84,13 @@ public class ItemDetailFragment extends Fragment implements CommentListener{
 
     private void checkBundle() {
         Bundle bundle = this.getArguments();
-        place = bundle.getParcelable("singleParcel");
+        if(bundle!=null){
+            place = bundle.getParcelable("singleParcel");
+        }
     }
 
     private void setUpRecyclerView(){
-        adapter = new CommentRecyclerAdapter(place.getAllComments(),this,getContext());
+        CommentRecyclerAdapter adapter = new CommentRecyclerAdapter(place.getAllComments(), this, getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         binding.commentRecyclerId.setLayoutManager(manager);
         binding.commentRecyclerId.setAdapter(adapter);
@@ -110,32 +104,23 @@ public class ItemDetailFragment extends Fragment implements CommentListener{
         alertDialog.show();
         alertDialog.setCanceledOnTouchOutside(false);
         Button cancel = view.findViewById(R.id.cancelBtnId);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
+        cancel.setOnClickListener(view1 -> alertDialog.dismiss());
         Button okButton = view.findViewById(R.id.okBtnId);
         EditText comments = view.findViewById(R.id.addcommentId);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(TextUtils.isEmpty(comments.getText())){
-                    comments.setError("Add a comment!");
-                    comments.requestFocus();
-                    return;
-                }
-                ArrayList<Comment> allComments = new ArrayList<>();
-                allComments.addAll(place.getAllComments());
-                User user =new User("anisur", "anisurhju","88843","4835784","asidei");
-                Comment comment = new Comment(user,comments.getText().toString(), 3.5F);
-                allComments.add(comment);
-                place.setAllComments(allComments);
-                touristParkViewModel.addCommentToPlace(place);
-                alertDialog.dismiss();
-                setUpRecyclerView();
+        okButton.setOnClickListener(view12 -> {
+            if(TextUtils.isEmpty(comments.getText())){
+                comments.setError("Add a comment!");
+                comments.requestFocus();
+                return;
             }
+            ArrayList<Comment> allComments = new ArrayList<>(place.getAllComments());
+            User user =new User("anisur", "anisurhju","88843","4835784","asidei");
+            Comment comment = new Comment(user,comments.getText().toString(), 3.5F);
+            allComments.add(comment);
+            place.setAllComments(allComments);
+            touristParkViewModel.addCommentToPlace(place);
+            alertDialog.dismiss();
+            setUpRecyclerView();
         });
     }
 

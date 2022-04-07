@@ -1,5 +1,6 @@
 package com.example.touristpark.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -54,10 +55,14 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
     }
 
     public void observers(){
+        ProgressDialog progressDialog = new ProgressDialog(requireActivity());
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         touristParkViewModel.allPlaces.observe(getViewLifecycleOwner(), item-> {
             placeList.clear();
             placeList.addAll(item);
             adapter.notifyDataSetChanged();
+            progressDialog.dismiss();
         });
     }
 
