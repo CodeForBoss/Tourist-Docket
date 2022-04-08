@@ -14,10 +14,12 @@ import androidx.navigation.Navigation;
 
 import com.example.touristpark.R;
 import com.example.touristpark.databinding.FragmentHomeBinding;
+import com.example.touristpark.repository.model.User;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
-
+    Bundle bundle = new Bundle();
+    User user = new User("Anonymous","ano");
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,6 +40,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_sign_up_frag);
+            }
+        });
+        binding.anonomousId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bundle.putParcelable("userParcel",user);
+                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_homeuser_frag,bundle);
             }
         });
     }

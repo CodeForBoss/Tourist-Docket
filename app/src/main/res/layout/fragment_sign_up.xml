@@ -47,7 +47,7 @@
                    android:layout_gravity="center"
                    android:layout_marginTop="10dp"
                    android:textSize="14sp"
-                   android:background="@color/teal_700"
+                   android:background="@color/mainColor"
                    android:textColor="@color/white"
                    android:id="@+id/chooseImageId"
                    />

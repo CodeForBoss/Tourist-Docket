@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.example.touristpark.R;
 import com.example.touristpark.databinding.FragmentHomeUserBinding;
 import com.example.touristpark.repository.model.Place;
+import com.example.touristpark.repository.model.User;
 import com.example.touristpark.view.adapter.RecyclerViewAdapter;
 import com.example.touristpark.viewmodel.TouristParkViewModel;
 
@@ -30,6 +31,7 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
     private final ArrayList<Place> placeList = new ArrayList<>();
     private TouristParkViewModel touristParkViewModel;
     private RecyclerViewAdapter adapter;
+    private User user = new User();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -46,7 +48,19 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
         touristParkViewModel = new ViewModelProvider(requireActivity()).get(TouristParkViewModel.class);
         setUpRecyclerView();
         observers();
+        checkBundle();
+        if(user.getEmail().equals("ano")){
+            setHasOptionsMenu(false);
+        }
     }
+
+    private void checkBundle() {
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            user = bundle.getParcelable("userParcel");
+        }
+    }
+
     public void setUpRecyclerView(){
         adapter = new RecyclerViewAdapter(placeList,this);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -70,6 +84,7 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
     public void singleItemClick(Place place) {
          Bundle bundle = new Bundle();
          bundle.putParcelable("singleParcel",place);
+         bundle.putParcelable("userParcel2",user);
         Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.homeUser_frag_to_ItemDetail_frag,bundle);
     }
 
@@ -83,6 +98,9 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.registerId:
+                 Bundle bundle = new Bundle();
+                 bundle.putParcelable("userParcel1",user);
+                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.homeuser_frag_to_place_frag,bundle);
             case R.id.profileId:
             case R.id.logoutId:
         }

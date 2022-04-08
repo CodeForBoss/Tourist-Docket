@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeUser_frag"
+    app:startDestination="@id/home_frag"
     >
 
     <fragment
@@ -12,6 +12,9 @@
         tools:layout="@layout/fragment_home">
         <action android:id="@+id/home_frag_to_sign_up_frag"
             app:destination="@id/signup_frag"
+            />
+        <action android:id="@+id/home_frag_to_homeuser_frag"
+            app:destination="@+id/homeUser_frag"
             />
     </fragment>
     <fragment
@@ -25,8 +28,8 @@
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true"
             />
-          <action android:id="@+id/signup_frag_to_place_frag"
-              app:destination="@id/place_frag"
+          <action android:id="@+id/signup_frag_to_homeuser_frag"
+              app:destination="@id/homeUser_frag"
               app:popUpTo="@+id/nav_graph"
               app:popUpToInclusive="true"/>
     </fragment>
@@ -40,6 +43,11 @@
         app:destination="@id/home_frag"
         app:popUpTo="@+id/nav_graph"
         app:popUpToInclusive="true"/>
+        <action  android:id="@+id/place_frag_to_homeuser_frag"
+            app:destination="@id/homeUser_frag"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            />
     </fragment>
     <fragment
         android:id="@+id/homeUser_frag"
@@ -48,6 +56,8 @@
         >
           <action android:id="@+id/homeUser_frag_to_ItemDetail_frag"
               app:destination="@id/ItemDetail_frag" />
+        <action android:id="@+id/homeuser_frag_to_place_frag"
+            app:destination="@id/place_frag"/>
     </fragment>
     <fragment
         android:id="@+id/ItemDetail_frag"

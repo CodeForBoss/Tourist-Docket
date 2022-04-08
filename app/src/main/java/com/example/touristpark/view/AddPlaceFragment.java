@@ -49,6 +49,7 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     private boolean isGPSEnable = false;
     private boolean isNetworkEnable = false;
     private TouristParkViewModel touristParkViewModel;
+    private User user = new User();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -67,17 +68,22 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
         }
         checkPermission();
         listeners();
+        checkBundle();
+    }
+
+    private void checkBundle() {
+        Bundle bundle = getArguments();
+         user = bundle.getParcelable("userParcel1");
     }
 
     private void listeners(){
             binding.okId.setOnClickListener(view -> {
                 if(checkValidation()){
-                    User user = new User("anisur","anisur1@gmail.com","43432","diu","hiaodijf");
                     Comment comment = new Comment(user,binding.commentId.getText().toString(),binding.ratingId.getRating());
                     ArrayList<Comment> allComment = new ArrayList<>();
                     allComment.add(comment);
                     Place place = new Place(allComment,binding.descriptionId.getText().toString(),binding.locationId.getText().toString(),
-                            null,"anisur@gmail.com");
+                            null,user.getEmail());
                     touristParkViewModel.registerNewPlace(place,requireActivity(),imageUri);
                 }
             });

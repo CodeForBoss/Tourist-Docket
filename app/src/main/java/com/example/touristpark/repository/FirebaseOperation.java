@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.net.Uri;
+import android.os.Bundle;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
@@ -32,8 +33,11 @@ public class FirebaseOperation {
     private StorageReference storageReference;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
+    private Bundle bundle;
 
     public void createNewUser(User user, Activity activity, Uri imageUri) {
+        bundle = new Bundle();
+        bundle.putParcelable("userParcel",user);
         builder = new AlertDialog.Builder(activity);
         progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Creating new user....");
@@ -53,7 +57,7 @@ public class FirebaseOperation {
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
                     builder.setMessage("User created successfully!");
-                    builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> Navigation.findNavController(activity, R.id.nav_host_fragment).navigate(R.id.signup_frag_to_place_frag));
+                    builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> Navigation.findNavController(activity, R.id.nav_host_fragment).navigate(R.id.signup_frag_to_homeuser_frag, bundle));
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                     alertDialog.setCanceledOnTouchOutside(false);
@@ -108,7 +112,7 @@ public class FirebaseOperation {
                             builder.setMessage("Register place successfully!");
                             builder.setPositiveButton(android.R.string.ok, (dialogInterface, i1) ->
                                     Navigation.findNavController(activity, R.id.nav_host_fragment).
-                                            navigate(R.id.signup_frag_to_place_frag));
+                                            navigate(R.id.place_frag_to_homeuser_frag,bundle));
                             AlertDialog alertDialog = builder.create();
                             alertDialog.show();
                             alertDialog.setCanceledOnTouchOutside(false);
@@ -117,7 +121,7 @@ public class FirebaseOperation {
                             builder.setMessage("Register failed! try again");
                             builder.setPositiveButton(android.R.string.ok, (dialogInterface, i1) ->
                                     Navigation.findNavController(activity, R.id.nav_host_fragment).
-                                            navigate(R.id.signup_frag_to_home_frag));
+                                            navigate(R.id.place_frag_to_homeuser_frag,bundle));
                             AlertDialog alertDialog = builder.create();
                             alertDialog.show();
                             alertDialog.setCanceledOnTouchOutside(false);

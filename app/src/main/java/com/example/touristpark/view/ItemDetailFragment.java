@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.touristpark.R;
@@ -31,7 +33,11 @@ import java.util.ArrayList;
 public class ItemDetailFragment extends Fragment implements CommentListener{
     private FragmentItemDetailBinding binding;
     private Place place = new Place();
+    private User user = new User();
     private TouristParkViewModel touristParkViewModel;
+
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,6 +92,7 @@ public class ItemDetailFragment extends Fragment implements CommentListener{
         Bundle bundle = this.getArguments();
         if(bundle!=null){
             place = bundle.getParcelable("singleParcel");
+            user = bundle.getParcelable("userParcel2");
         }
     }
 
@@ -107,6 +114,11 @@ public class ItemDetailFragment extends Fragment implements CommentListener{
         cancel.setOnClickListener(view1 -> alertDialog.dismiss());
         Button okButton = view.findViewById(R.id.okBtnId);
         EditText comments = view.findViewById(R.id.addcommentId);
+        LinearLayout linearLayout = view.findViewById(R.id.showRatingLayoutId);
+        RatingBar ratingBar = view.findViewById(R.id.ratingIdAdd);
+        if(user!=null && user.getEmail().equals("ano")){
+            linearLayout.setVisibility(View.GONE);
+        }
         okButton.setOnClickListener(view12 -> {
             if(TextUtils.isEmpty(comments.getText())){
                 comments.setError("Add a comment!");
@@ -114,8 +126,7 @@ public class ItemDetailFragment extends Fragment implements CommentListener{
                 return;
             }
             ArrayList<Comment> allComments = new ArrayList<>(place.getAllComments());
-            User user =new User("anisur", "anisurhju","88843","4835784","asidei");
-            Comment comment = new Comment(user,comments.getText().toString(), 3.5F);
+            Comment comment = new Comment(user,comments.getText().toString(), ratingBar.getRating());
             allComments.add(comment);
             place.setAllComments(allComments);
             touristParkViewModel.addCommentToPlace(place);

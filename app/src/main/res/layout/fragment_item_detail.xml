@@ -48,11 +48,6 @@
               android:fontFamily="sans-serif"
               android:id="@+id/locationshowId2"
               />
-          <View
-              android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="#ff914d"
-              />
           <LinearLayout
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -65,14 +60,14 @@
                   android:id="@+id/descriptionBtnId"
                   android:layout_width="110dp"
                   android:layout_height="40dp"
-                  android:text="Descriptions"
+                  android:text="Description"
                   android:background="@drawable/round_shape"
                   android:textAllCaps="false"
                   android:textColor="@color/black" />
               <androidx.appcompat.widget.AppCompatButton
                   android:layout_width="110dp"
                   android:layout_height="40dp"
-                  android:text="Reviews"
+                  android:text="Review"
                   android:textColor="@color/black"
                   android:textAllCaps="false"
                   android:layout_marginLeft="80dp"
@@ -80,40 +75,47 @@
                   android:background="@drawable/rectangle_shape"
                   />
           </LinearLayout>
-          <LinearLayout
+          <ScrollView
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:layout_margin="5dp"
-              android:id="@+id/descriptionsLayoutId"
-              android:visibility="visible"
-              >
-              <TextView
+              android:layout_height="match_parent">
+              <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:id="@+id/showDescriptionsId5"
-                  android:textAllCaps="false"
-                  android:textColor="@color/black"
-                  />
-          </LinearLayout>
-         <ScrollView
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical"
-                 android:id="@+id/reviewsLayoutId"
-                 android:visibility="gone"
-                 >
-                 <androidx.recyclerview.widget.RecyclerView
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:id="@+id/commentRecyclerId"
-                     android:layout_margin="5dp"
-                     />
-             </LinearLayout>
-         </ScrollView>
+                  android:orientation="vertical"
+                  >
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_margin="5dp"
+                      android:id="@+id/descriptionsLayoutId"
+                      android:visibility="visible"
+                      >
+                      <TextView
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/showDescriptionsId5"
+                          android:textAllCaps="false"
+                          android:textColor="@color/black"
+                          />
+                  </LinearLayout>
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:id="@+id/reviewsLayoutId"
+                      android:visibility="gone"
+                      >
+                      <androidx.recyclerview.widget.RecyclerView
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:id="@+id/commentRecyclerId"
+                          android:layout_margin="5dp"
+                          />
+                  </LinearLayout>
+              </LinearLayout>
+          </ScrollView>
+
       </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

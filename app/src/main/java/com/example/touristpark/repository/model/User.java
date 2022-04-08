@@ -1,6 +1,9 @@
 package com.example.touristpark.repository.model;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable {
     private String name,email,phone,password,profileImageUri;
 
     public User(String name, String email, String phone, String password,String profileImageUri) {
@@ -9,6 +12,11 @@ public class User {
         this.phone = phone;
         this.password = password;
         this.profileImageUri = profileImageUri;
+    }
+
+    public User(String name,String email) {
+        this.email = email;
+        this.name = name;
     }
 
     public User() {
@@ -52,5 +60,15 @@ public class User {
 
     public void setProfileImageUri(String profileImageUri) {
         this.profileImageUri = profileImageUri;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

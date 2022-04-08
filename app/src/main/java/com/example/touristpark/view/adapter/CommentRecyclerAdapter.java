@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -42,8 +43,16 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Comment comment = allComments.get(position);
-           Glide.with(context).load(comment.getUser().getProfileImageUri()).into(holder.userProfilePic);
-           holder.userRating.setRating(comment.getRating());
+
+           if(comment.getUser().getEmail().equals("ano")){
+               holder.userRating.setVisibility(View.GONE);
+               holder.imageButton.setVisibility(View.GONE);
+           } else {
+               holder.imageButton.setVisibility(View.VISIBLE);
+               holder.userRating.setVisibility(View.VISIBLE);
+               holder.userRating.setRating(comment.getRating());
+               Glide.with(context).load(comment.getUser().getProfileImageUri()).into(holder.userProfilePic);
+           }
            holder.userComment.setText(comment.getUserComment());
            holder.userName.setText(comment.getUser().getName());
            holder.commentCard.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +74,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
          RatingBar userRating;
          ImageView userProfilePic;
          CardView commentCard;
+         ImageButton imageButton;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.showUserNameId);
@@ -72,6 +82,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
             userRating = itemView.findViewById(R.id.showRatingId);
             userProfilePic = itemView.findViewById(R.id.showProfilePicId);
             commentCard = itemView.findViewById(R.id.commentCardId);
+            imageButton = itemView.findViewById(R.id.verifyIconId);
         }
     }
 }
