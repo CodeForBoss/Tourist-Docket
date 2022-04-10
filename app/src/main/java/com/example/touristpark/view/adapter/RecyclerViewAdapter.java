@@ -3,6 +3,7 @@ package com.example.touristpark.view.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                itemClickListener.singleItemClick(place);
            }
        });
+       holder.arrowBtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               itemClickListener.singleItemClick(place);
+           }
+       });
     }
 
     @Override
@@ -62,11 +69,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView locationShow;
         ImageSlider imageSlider;
         CardView itemCardView;
+        ImageButton arrowBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             locationShow = itemView.findViewById(R.id.locationshowId);
             imageSlider = itemView.findViewById(R.id.image_slider);
             itemCardView = itemView.findViewById(R.id.itemcardId);
+            arrowBtn = itemView.findViewById(R.id.arrowBtnId);
         }
     }
 }
