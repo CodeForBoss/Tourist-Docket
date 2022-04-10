@@ -49,6 +49,12 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_homeuser_frag,bundle);
             }
         });
+        binding.signInId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_signin_frag);
+            }
+        });
     }
 
     private void underLineText(){

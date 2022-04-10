@@ -28,7 +28,7 @@ public class TouristParkViewModel extends AndroidViewModel {
         loadAllPlaces();
     }
 
-    private Repository repository = new Repository();
+    private final Repository repository = new Repository();
 
     public void createNewUser(User user, Activity activity, Uri imageUri){
         repository.createNewUser(user,activity,imageUri);

@@ -73,7 +73,9 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
 
     private void checkBundle() {
         Bundle bundle = getArguments();
-         user = bundle.getParcelable("userParcel1");
+        if(bundle != null){
+            user = bundle.getParcelable("userParcel1");
+        }
     }
 
     private void listeners(){

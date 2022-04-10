@@ -16,6 +16,8 @@
         <action android:id="@+id/home_frag_to_homeuser_frag"
             app:destination="@+id/homeUser_frag"
             />
+        <action android:id="@+id/home_frag_to_signin_frag"
+            app:destination="@id/signin_frag"/>
     </fragment>
     <fragment
         android:id="@+id/signup_frag"
@@ -67,6 +69,14 @@
         <action android:id="@+id/ItemDetail_frag_to_homeUser_frag"
             app:destination="@id/homeUser_frag"
             app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment android:id="@+id/signin_frag"
+        android:name="com.example.touristpark.view.SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+        <action android:id="@+id/signin_frag_to_home_frag"
+            app:destination="@id/home_frag"
+            app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
