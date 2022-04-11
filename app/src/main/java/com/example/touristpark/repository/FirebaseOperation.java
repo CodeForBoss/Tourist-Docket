@@ -86,7 +86,9 @@ public class FirebaseOperation {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(imageUrl));
     }
 
-    public void registerNewPlace(Place place, Activity activity, ArrayList<Uri> imageUrl){
+    public void registerNewPlace(User user,Place place, Activity activity, ArrayList<Uri> imageUrl){
+        bundle = new Bundle();
+        bundle.putParcelable("userParcel",user);
         ArrayList<String> allImageLink = new ArrayList<>();
         builder = new AlertDialog.Builder(activity);
         progressDialog = new ProgressDialog(activity);
@@ -129,7 +131,7 @@ public class FirebaseOperation {
                     }).addOnFailureListener(e -> {
                         progressDialog.dismiss();
                         builder.setMessage("Register Failed! try again");
-                        builder.setPositiveButton(android.R.string.ok, (dialogInterface, i1) -> Navigation.findNavController(activity, R.id.nav_host_fragment).navigate(R.id.signup_frag_to_home_frag));
+                        builder.setPositiveButton(android.R.string.ok, (dialogInterface, i1) -> Navigation.findNavController(activity, R.id.nav_host_fragment).navigate(R.id.place_frag_to_homeuser_frag));
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
                         alertDialog.setCanceledOnTouchOutside(false);
@@ -142,7 +144,7 @@ public class FirebaseOperation {
     public void addCommentToPlace(Place place){
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference("place");
-        mDatabaseReference.orderByChild("userEmail").equalTo(place.getUserEmail()).addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.orderByChild("placeId").equalTo(place.getPlaceId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){

@@ -27,8 +27,10 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
+import com.example.touristpark.R;
 import com.example.touristpark.databinding.FragmentAddPlaceBinding;
 import com.example.touristpark.repository.model.Comment;
 import com.example.touristpark.repository.model.Place;
@@ -38,6 +40,8 @@ import com.example.touristpark.viewmodel.TouristParkViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AddPlaceFragment extends Fragment implements LocationListener {
     private final int REQUEST_PERMISSION = 104;
@@ -50,6 +54,7 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
     private boolean isNetworkEnable = false;
     private TouristParkViewModel touristParkViewModel;
     private User user = new User();
+    Bundle bundle = new Bundle();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -66,18 +71,21 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
         if(getContext()!=null){
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         }
-        checkPermission();
         listeners();
         checkBundle();
+        checkPermission();
     }
 
     private void checkBundle() {
-        Bundle bundle = getArguments();
+        bundle = getArguments();
         if(bundle != null){
             user = bundle.getParcelable("userParcel1");
         }
     }
-
+       private int generatePlaceId(){
+        Random rand = new Random();
+           return rand.nextInt(1000);
+       }
     private void listeners(){
             binding.okId.setOnClickListener(view -> {
                 if(checkValidation()){
@@ -85,8 +93,8 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
                     ArrayList<Comment> allComment = new ArrayList<>();
                     allComment.add(comment);
                     Place place = new Place(allComment,binding.descriptionId.getText().toString(),binding.locationId.getText().toString(),
-                            null,user.getEmail());
-                    touristParkViewModel.registerNewPlace(place,requireActivity(),imageUri);
+                            null,generatePlaceId());
+                    touristParkViewModel.registerNewPlace(user,place,requireActivity(),imageUri);
                 }
             });
             binding.uploadImageId.setOnClickListener(view -> openChooseFile());
@@ -174,7 +182,9 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
                 builder.setTitle("Location Permission Denied!");
                 builder.setMessage("Without location permission\nyou can't register new place");
                 builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-
+                    bundle = new Bundle();
+                    bundle.putParcelable("userParcel",user);
+                    Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.place_frag_to_homeuser_frag,bundle);
                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
@@ -186,7 +196,9 @@ public class AddPlaceFragment extends Fragment implements LocationListener {
             builder.setTitle("Location Permission Denied!");
             builder.setMessage("Without location permission\nyou can't register new place");
             builder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-
+                bundle = new Bundle();
+                bundle.putParcelable("userParcel",user);
+                Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.place_frag_to_homeuser_frag,bundle);
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();

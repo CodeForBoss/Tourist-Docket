@@ -49,15 +49,15 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
         setUpRecyclerView();
         observers();
         checkBundle();
-        if(user.getEmail().equals("ano")){
-            setHasOptionsMenu(false);
-        }
     }
 
     private void checkBundle() {
         Bundle bundle = getArguments();
         if(bundle != null){
             user = bundle.getParcelable("userParcel");
+            if(user.getEmail().equals("ano")){
+                setHasOptionsMenu(false);
+            }
         }
     }
 
@@ -101,6 +101,7 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
                  Bundle bundle = new Bundle();
                  bundle.putParcelable("userParcel1",user);
                 Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.homeuser_frag_to_place_frag,bundle);
+                break;
             case R.id.profileId:
             case R.id.logoutId: Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.homeuser_frag_to_home_frag);
         }

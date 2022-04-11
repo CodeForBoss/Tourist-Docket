@@ -14,8 +14,8 @@ public class Repository {
     public void createNewUser(User user, Activity activity, Uri imageUri){
         firebaseOperation.createNewUser(user,activity,imageUri);
     }
-    public void registerNewPlace(Place place, Activity activity, ArrayList<Uri> imageUri){
-        firebaseOperation.registerNewPlace(place,activity,imageUri);
+    public void registerNewPlace(User user,Place place, Activity activity, ArrayList<Uri> imageUri){
+        firebaseOperation.registerNewPlace(user,place,activity,imageUri);
     }
 
     public void addUserComment(Place place){

@@ -7,15 +7,16 @@ import java.util.ArrayList;
 
 public class Place implements Parcelable {
     private ArrayList<Comment> allComments;
-    private String descriptions, location, userEmail;
+    private String descriptions, location;
     private ArrayList<String> imageUri;
+    private int placeId;
 
-    public Place(ArrayList<Comment> allComments, String descriptions, String location, ArrayList<String> imageUri,String userEmail) {
+    public Place(ArrayList<Comment> allComments, String descriptions, String location, ArrayList<String> imageUri,int placeId) {
         this.allComments = allComments;
         this.descriptions = descriptions;
         this.location = location;
         this.imageUri = imageUri;
-        this.userEmail = userEmail;
+        this.placeId = placeId;
     }
     public Place() {
 
@@ -45,20 +46,20 @@ public class Place implements Parcelable {
         this.location = location;
     }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
     public ArrayList<String> getImageUri() {
         return imageUri;
     }
 
     public void setImageUri(ArrayList<String> imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public int getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
     @Override

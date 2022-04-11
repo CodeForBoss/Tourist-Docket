@@ -36,8 +36,8 @@ public class TouristParkViewModel extends AndroidViewModel {
         repository.createNewUser(user,activity,imageUri);
     }
 
-    public void registerNewPlace(Place place, Activity activity, ArrayList<Uri> imageUri){
-        repository.registerNewPlace(place,activity, imageUri);
+    public void registerNewPlace(User user,Place place, Activity activity, ArrayList<Uri> imageUri){
+        repository.registerNewPlace(user,place,activity, imageUri);
     }
 
     public void addCommentToPlace(Place place){

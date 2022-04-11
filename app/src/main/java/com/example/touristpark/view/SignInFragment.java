@@ -68,7 +68,7 @@ public class SignInFragment extends Fragment {
             binding.emailsignInId.requestFocus();
             return false;
         } else if(binding.passwordSignInId.getText().toString().isEmpty()){
-            binding.passwordSignInId.setError("Invalid Email!");
+            binding.passwordSignInId.setError("Invalid password!");
             binding.passwordSignInId.requestFocus();
             return false;
         } else {
