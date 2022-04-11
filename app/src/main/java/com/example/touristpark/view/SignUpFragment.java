@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +23,14 @@ import com.example.touristpark.databinding.FragmentSignUpBinding;
 import com.example.touristpark.repository.model.User;
 import com.example.touristpark.viewmodel.TouristParkViewModel;
 
+import java.util.ArrayList;
+
 public class SignUpFragment extends Fragment{
      private FragmentSignUpBinding binding;
      private User user;
     private TouristParkViewModel touristParkViewModel;
     private static final int IMAGE_REQUEST = 1;
+    ArrayList<User> allUsers = new ArrayList<>();
     Uri imguri;
     boolean isImageSelected = false;
 
@@ -45,6 +49,14 @@ public class SignUpFragment extends Fragment{
         touristParkViewModel = new ViewModelProvider(requireActivity()).get(TouristParkViewModel.class);
         binding.setUser(user);
         listeners();
+        observers();
+    }
+
+    private void observers() {
+        touristParkViewModel.allUser.observe(getViewLifecycleOwner(), users -> {
+            allUsers.clear();
+            allUsers.addAll(users);
+        });
     }
 
     private void listeners(){
@@ -97,8 +109,16 @@ public class SignUpFragment extends Fragment{
         } else if(!isImageSelected){
             Toast.makeText(getContext(), "Please select a profile picture!", Toast.LENGTH_SHORT).show();
             return false;
+        } else {
+            for(User user1 : allUsers){
+                String email1 = user1.getEmail();
+                if(email1.equals(binding.emailId.getText().toString().trim())){
+                    Toast.makeText(getContext(), "User Already Exists!", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+            return true;
         }
-        return true;
     }
 
 
