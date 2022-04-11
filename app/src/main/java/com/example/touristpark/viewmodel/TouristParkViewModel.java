@@ -21,11 +21,13 @@ import java.util.ArrayList;
 
 public class TouristParkViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<Place>> allPlaces = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<User>> allUser = new MutableLiveData<>();
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
     public TouristParkViewModel(@NonNull Application application) {
         super(application);
         loadAllPlaces();
+        loadAllUser();
     }
 
     private final Repository repository = new Repository();
@@ -55,6 +57,27 @@ public class TouristParkViewModel extends AndroidViewModel {
                     getPlaces.add(place);
                 }
                 allPlaces.setValue(getPlaces);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void loadAllUser(){
+        ArrayList<User> getUsers = new ArrayList<>();
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mDatabase.getReference("user");
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                getUsers.clear();
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    User user = dataSnapshot.getValue(User.class);
+                    getUsers.add(user);
+                }
+                allUser.setValue(getUsers);
             }
 
             @Override
