@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home_frag"
+    app:startDestination="@id/profile_frag"
     >
     <fragment
         android:id="@+id/home_frag"
@@ -84,6 +84,15 @@
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
         <action android:id="@+id/signin_frag_to_homeuser_frag"
+            app:destination="@id/homeUser_frag"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment android:id="@+id/profile_frag"
+        android:name="com.example.touristpark.view.UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile"
+        >
+        <action android:id="@+id/profile_frag_to_homeUserFrag"
             app:destination="@id/homeUser_frag"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
