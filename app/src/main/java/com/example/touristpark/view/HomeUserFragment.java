@@ -100,9 +100,11 @@ public class HomeUserFragment extends Fragment implements ItemClickListener {
             case R.id.registerId:
                  Bundle bundle = new Bundle();
                  bundle.putParcelable("userParcel1",user);
-                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.homeuser_frag_to_place_frag,bundle);
-                break;
+                 Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.homeuser_frag_to_place_frag,bundle);
+                 break;
+
             case R.id.profileId:
+
             case R.id.logoutId: Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.homeuser_frag_to_home_frag);
         }
         return super.onOptionsItemSelected(item);
