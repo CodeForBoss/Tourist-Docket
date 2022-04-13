@@ -44,6 +44,10 @@ public class TouristParkViewModel extends AndroidViewModel {
         repository.addUserComment(place);
     }
 
+    public void updateUser(Activity activity, User user, Uri uri){
+        repository.updateUserProfile(activity,user,uri);
+    }
+
     public void loadAllPlaces(){
         ArrayList<Place> getPlaces = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance();

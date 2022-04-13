@@ -42,7 +42,7 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="110dp"
                     android:layout_height="30dp"
-                    android:text="Choose Image"
+                    android:text="update Image"
                     android:textAllCaps="false"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
@@ -56,6 +56,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="12"
+                    android:layout_marginTop="10dp"
                     >
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -130,6 +131,8 @@
                             android:text="@={usr.name}"
                             />
                         <EditText
+                            android:background="@null"
+                            android:alpha="0.5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
@@ -139,6 +142,8 @@
                             android:singleLine="false"
                             android:id="@+id/emailId7"
                             android:text="@={usr.email}"
+                            android:cursorVisible="false"
+                            android:focusableInTouchMode="false"
                             />
                         <EditText
                             android:layout_width="match_parent"

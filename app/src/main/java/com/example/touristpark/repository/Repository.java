@@ -21,4 +21,8 @@ public class Repository {
     public void addUserComment(Place place){
         firebaseOperation.addCommentToPlace(place);
     }
+
+    public void updateUserProfile(Activity activity, User user, Uri imageUri){
+        firebaseOperation.updateUserProfile(activity,user,imageUri);
+    }
 }

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecyclerAdapter.ViewHolder> {
 
-    private ArrayList<Comment> allComments = new ArrayList<>();
+    private ArrayList<Comment> allComments;
     private CommentListener commentListener;
     private Context context;
 
@@ -55,12 +55,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
            }
            holder.userComment.setText(comment.getUserComment());
            holder.userName.setText(comment.getUser().getName());
-           holder.commentCard.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   commentListener.commentClick(comment);
-               }
-           });
+           holder.commentCard.setOnClickListener(view -> commentListener.commentClick(comment));
 
     }
 

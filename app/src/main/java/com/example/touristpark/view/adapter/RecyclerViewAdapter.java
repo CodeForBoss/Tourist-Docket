@@ -3,6 +3,8 @@ package com.example.touristpark.view.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,12 +20,14 @@ import com.example.touristpark.view.ItemClickListener;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private ArrayList<Place> allPlaces = new ArrayList<>();
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
+    private ArrayList<Place> allPlaces ;
+    private ArrayList<Place> allPlacesFull ;
     private ItemClickListener itemClickListener;
 
     public RecyclerViewAdapter(ArrayList<Place> allPlaces, ItemClickListener itemClickListener) {
         this.allPlaces = allPlaces;
+        this.allPlacesFull = allPlaces;
         this.itemClickListener = itemClickListener;
     }
 
@@ -45,18 +49,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
            allImages.add(new SlideModel(imageUrl,null));
        }
        holder.imageSlider.setImageList(allImages);
-       holder.itemCardView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               itemClickListener.singleItemClick(place);
-           }
-       });
-       holder.arrowBtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               itemClickListener.singleItemClick(place);
-           }
-       });
+       holder.itemCardView.setOnClickListener(view -> itemClickListener.singleItemClick(place));
+       holder.arrowBtn.setOnClickListener(view -> itemClickListener.singleItemClick(place));
     }
 
     @Override
@@ -78,4 +72,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             arrowBtn = itemView.findViewById(R.id.arrowBtnId);
         }
     }
+    @Override
+    public Filter getFilter() {
+        return allPlacesFilter;
+    }
+   private Filter allPlacesFilter = new Filter() {
+       @Override
+       protected FilterResults performFiltering(CharSequence charSequence) {
+           if(charSequence.length() == 0){
+               allPlaces = (allPlacesFull);
+           } else {
+               ArrayList<Place> filterPlace = new ArrayList<>();
+               for(Place place: allPlacesFull){
+                   if(place.getLocation().toLowerCase().contains(charSequence.toString().toLowerCase().trim())){
+                       filterPlace.add(place);
+                   }
+               }
+               allPlaces = (filterPlace);
+           }
+
+           FilterResults results = new FilterResults();
+           results.values = allPlaces;
+           return results;
+       }
+
+       @Override
+       protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            allPlaces = ((ArrayList<Place>) filterResults.values);
+            notifyDataSetChanged();
+       }
+   };
 }

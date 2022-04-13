@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 import com.example.touristpark.R;
 import com.example.touristpark.repository.model.Place;
 import com.example.touristpark.repository.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -152,6 +155,59 @@ public class FirebaseOperation {
                         Map newMap = new HashMap();
                         newMap.put("allComments",place.getAllComments());
                         ds.getRef().updateChildren(newMap);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void updateUserProfile(Activity activity,User user, Uri imageUri){
+        builder = new AlertDialog.Builder(activity);
+        progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Updating profile....");
+        progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
+        if(imageUri != null){
+            storageReference = FirebaseStorage.getInstance().getReference("user");
+            StorageReference ref = storageReference.child(System.currentTimeMillis() + "." + getFileExtention(activity, imageUri));
+            ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while (!uriTask.isSuccessful()) ;
+                    Uri downloadUrl = uriTask.getResult();
+                    String imageLink = downloadUrl.toString();
+                    user.setProfileImageUri(imageLink);
+                    updateProfile(user);
+                }
+            });
+        } else {
+            updateProfile(user);
+        }
+
+    }
+
+    private void updateProfile(User user){
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mDatabase.getReference("user");
+        mDatabaseReference.orderByChild("email").equalTo(user.getEmail()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot ds : snapshot.getChildren()){
+                        Map newMap = new HashMap();
+                        newMap.put("name",user.getName());
+                        newMap.put("phone",user.getPhone());
+                        newMap.put("password",user.getPassword());
+                        newMap.put("profileImageUri",user.getProfileImageUri());
+                        ds.getRef().updateChildren(newMap).addOnCompleteListener(task -> progressDialog.dismiss());
+                       break;
                     }
                 }
             }
