@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 public class SignUpFragment extends Fragment{
      private FragmentSignUpBinding binding;
-     private User user;
     private TouristParkViewModel touristParkViewModel;
     private static final int IMAGE_REQUEST = 1;
     ArrayList<User> allUsers = new ArrayList<>();
@@ -34,7 +33,7 @@ public class SignUpFragment extends Fragment{
     boolean isImageSelected = false;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(inflater,container,false);
@@ -44,7 +43,7 @@ public class SignUpFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        user = new User();
+        User user = new User();
         touristParkViewModel = new ViewModelProvider(requireActivity()).get(TouristParkViewModel.class);
         binding.setUser(user);
         listeners();
@@ -59,22 +58,14 @@ public class SignUpFragment extends Fragment{
     }
 
     private void listeners(){
-        binding.submitBtnId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkValidation()){
-                    User user = new User(binding.getUser().getName(),binding.getUser().getEmail(),binding.getUser().getPhone(),
-                            binding.getUser().getPassword(),"");
-                    touristParkViewModel.createNewUser(user,requireActivity(),imguri);
-                }
+        binding.submitBtnId.setOnClickListener(view -> {
+            if(checkValidation()){
+                User user = new User(binding.getUser().getName(),binding.getUser().getEmail(),binding.getUser().getPhone(),
+                        binding.getUser().getPassword(),"");
+                touristParkViewModel.createNewUser(user,requireActivity(),imguri);
             }
         });
-        binding.chooseImageId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openChooseFile();
-            }
-        });
+        binding.chooseImageId.setOnClickListener(view -> openChooseFile());
     }
 
    private boolean checkValidation(){

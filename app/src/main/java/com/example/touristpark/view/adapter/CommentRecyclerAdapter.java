@@ -22,9 +22,9 @@ import java.util.ArrayList;
 
 public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecyclerAdapter.ViewHolder> {
 
-    private ArrayList<Comment> allComments;
-    private CommentListener commentListener;
-    private Context context;
+    private final ArrayList<Comment> allComments;
+    private final CommentListener commentListener;
+    private final Context context;
 
     public CommentRecyclerAdapter(ArrayList<Comment> allComments, CommentListener commentListener,Context context) {
         this.allComments = allComments;

@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
     private ArrayList<Place> allPlaces ;
-    private ArrayList<Place> allPlacesFull ;
-    private ItemClickListener itemClickListener;
+    private final ArrayList<Place> allPlacesFull ;
+    private final ItemClickListener itemClickListener;
 
     public RecyclerViewAdapter(ArrayList<Place> allPlaces, ItemClickListener itemClickListener) {
         this.allPlaces = allPlaces;
@@ -76,7 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public Filter getFilter() {
         return allPlacesFilter;
     }
-   private Filter allPlacesFilter = new Filter() {
+   private final Filter allPlacesFilter = new Filter() {
        @Override
        protected FilterResults performFiltering(CharSequence charSequence) {
            if(charSequence.length() == 0){

@@ -16,27 +16,28 @@
             android:orientation="vertical"
             >
                 <ImageView
+                    android:contentDescription="@string/image_content_des"
                     android:visibility="visible"
                     android:id="@+id/selectImage"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_height="@dimen/density_200"
+                    android:layout_marginStart="@dimen/density_5"
+                    android:layout_marginTop="@dimen/density_5"
+                    android:layout_marginEnd="@dimen/density_5"
+                    android:layout_marginBottom="@dimen/density_5"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="3dp"
+                    android:padding="@dimen/density_3"
                     android:scaleType="fitCenter"
                     android:src="@drawable/default_image" />
             <LinearLayout
                 android:id="@+id/multipleImageViewId"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/density_200"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:visibility="gone"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/density_10"
                 >
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -45,23 +46,25 @@
                     android:layout_weight="1"
                     >
                     <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginRight="5dp"
+                        android:contentDescription="@string/image_content_des"
+                        android:layout_marginTop="@dimen/density_5"
+                        android:layout_marginLeft="@dimen/density_5"
+                        android:layout_marginBottom="@dimen/density_5"
+                        android:layout_marginRight="@dimen/density_5"
                         android:id="@+id/showPicId1"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="@dimen/density_100"
                         android:scaleType="fitXY"
                         />
                     <ImageView
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:contentDescription="@string/image_content_des"
+                        android:layout_marginLeft="@dimen/density_5"
+                        android:layout_marginRight="@dimen/density_5"
+                        android:layout_marginBottom="@dimen/density_5"
                         android:id="@+id/showPicId3"
                         android:scaleType="fitXY"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"/>
+                        android:layout_height="@dimen/density_100"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -70,33 +73,34 @@
                     android:layout_weight="1"
                     >
                     <ImageView
-                      android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:contentDescription="@string/image_content_des"
+                      android:layout_marginEnd="@dimen/density_5"
+                        android:layout_marginTop="@dimen/density_5"
+                        android:layout_marginBottom="@dimen/density_5"
                         android:id="@+id/showPicId2"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="@dimen/density_100"
                         android:scaleType="fitXY"
                         />
                     <ImageView
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:contentDescription="@string/image_content_des"
+                        android:layout_marginEnd="@dimen/density_5"
+                        android:layout_marginBottom="@dimen/density_5"
                         android:id="@+id/showPicId4"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="@dimen/density_100"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
             </LinearLayout>
                 <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="110dp"
-                    android:layout_height="30dp"
-                    android:text="Upload Image"
+                    android:layout_width="@dimen/density_110"
+                    android:layout_height="@dimen/density_30"
+                    android:text="@string/upload_image"
                     android:textAllCaps="false"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:textSize="14sp"
+                    android:layout_marginTop="@dimen/density_10"
+                    android:layout_marginBottom="@dimen/density_20"
                     android:background="@color/mainColor"
                     android:textColor="@color/white"
                     android:id="@+id/uploadImageId"
@@ -105,13 +109,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="14dp"
-                android:padding="5dp"
+                android:layout_marginLeft="@dimen/density_10"
+                android:layout_marginRight="@dimen/density_10"
+                android:layout_marginBottom="@dimen/density_10"
+                android:padding="@dimen/density_10"
                 android:textColor="@color/black"
-                android:fontFamily="sans-serif"
                 android:id="@+id/locationId"
                 android:visibility="gone"
                 />
@@ -120,10 +122,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/progressId"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/density_10"
+                android:layout_marginRight="@dimen/density_10"
+                android:layout_marginLeft="@dimen/density_10"
+                android:layout_marginBottom="@dimen/density_10"
                 >
                 <ProgressBar
                     android:layout_width="wrap_content"
@@ -131,87 +133,30 @@
                     android:layout_gravity="center_horizontal"
                     />
                 <TextView
-                    android:padding="5dp"
+                    android:padding="@dimen/density_5"
                     android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:text="Please wait..\nDiscovering your location"
+                    android:textSize="@dimen/sp_12"
+                    android:text="@string/pleasewait"
                     android:layout_gravity="center_horizontal"
                     />
             </LinearLayout>
-          <com.google.android.material.card.MaterialCardView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="5dp"
-              android:layout_marginRight="5dp"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="5dp"
-              app:cardCornerRadius="5dp"
-              app:cardElevation="4dp"
-              >
-              <EditText
-                  android:id="@+id/descriptionId"
-                  android:fontFamily="sans-serif"
-                  android:padding="3dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:hint="Descriptions"
-                  android:gravity="top|start"
-                  android:inputType="textMultiLine"
-                  android:minLines="4"
-                  android:textSize="14sp"
-                  android:scrollHorizontally="false"
-                  android:scrollbars="vertical"
-                  android:autoLink="all"
-                  android:linksClickable="true"
-                  android:background="@null"
-                  />
-          </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="4dp"
-                >
-                <EditText
-                    android:id="@+id/commentId"
-                    android:fontFamily="sans-serif"
-                    android:padding="3dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Comment"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:minLines="3"
-                    android:textSize="14sp"
-                    android:scrollHorizontally="false"
-                    android:scrollbars="vertical"
-                    android:autoLink="all"
-                    android:linksClickable="true"
-                    android:background="@null"
-                    />
-            </com.google.android.material.card.MaterialCardView>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="5dp">
+                android:layout_marginLeft="@dimen/density_10"
+                android:layout_marginRight="@dimen/density_10"
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rate this place"
-                    android:textSize="14sp"
+                    android:text="@string/Rate_this"
                     android:textColor="@color/black"
                     android:textAllCaps="false"
-                    android:padding="5dp"
-                    android:fontFamily="sans-serif"
+                    android:padding="@dimen/density_5"
                     android:layout_gravity="center_vertical"
                     />
                 <androidx.appcompat.widget.AppCompatRatingBar
@@ -226,17 +171,67 @@
                     android:id="@+id/ratingId"
                     android:rating="3" />
             </LinearLayout>
+          <com.google.android.material.card.MaterialCardView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/density_10"
+              android:layout_marginRight="@dimen/density_10"
+              android:layout_marginTop="@dimen/density_10"
+              android:layout_marginBottom="@dimen/density_10"
+              app:cardCornerRadius="@dimen/density_5"
+              app:cardElevation="@dimen/density_4"
+              >
+              <EditText
+                  android:id="@+id/descriptionId"
+                  android:padding="@dimen/density_5"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="@string/des_text"
+                  android:gravity="top|start"
+                  android:inputType="textMultiLine"
+                  android:minLines="4"
+                  android:scrollHorizontally="false"
+                  android:scrollbars="vertical"
+                  android:background="@null"
+                  />
+          </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/density_10"
+                android:layout_marginRight="@dimen/density_10"
+                android:layout_marginTop="@dimen/density_10"
+                android:layout_marginBottom="@dimen/density_10"
+                app:cardCornerRadius="@dimen/density_5"
+                app:cardElevation="@dimen/density_4"
+                >
+                <EditText
+                    android:id="@+id/commentId"
+                    android:fontFamily="sans-serif"
+                    android:padding="@dimen/density_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/comment"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"
+                    android:background="@null"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
+
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/density_40"
                 android:background="@drawable/round_shape"
-                android:text="OK"
-                android:textSize="14sp"
+                android:text="@string/ok"
                 android:textColor="@color/white"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="@dimen/density_10"
+                android:layout_marginRight="@dimen/density_10"
+                android:layout_marginTop="@dimen/density_10"
+                android:layout_marginBottom="@dimen/density_10"
                 android:id="@+id/okId"
                 android:visibility="gone"
                 android:clickable="true"

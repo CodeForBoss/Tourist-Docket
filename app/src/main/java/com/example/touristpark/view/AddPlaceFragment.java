@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -41,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class AddPlaceFragment extends Fragment implements LocationListener {
     private final int REQUEST_PERMISSION = 104;

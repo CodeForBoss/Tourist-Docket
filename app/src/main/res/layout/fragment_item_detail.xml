@@ -14,9 +14,9 @@
           <androidx.cardview.widget.CardView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              app:cardElevation="4dp"
-              app:cardCornerRadius="10dp"
-              android:layout_margin="5dp"
+              app:cardElevation="@dimen/density_4"
+              app:cardCornerRadius="@dimen/density_10"
+              android:layout_margin="@dimen/density_5"
               android:id="@+id/itemcardId2"
               >
               <LinearLayout
@@ -27,8 +27,8 @@
                   <com.denzcoskun.imageslider.ImageSlider
                       android:id="@+id/image_slider2"
                       android:layout_width="match_parent"
-                      android:layout_height="180dp"
-                      android:layout_margin="5dp"
+                      android:layout_height="@dimen/density_180"
+                      android:layout_margin="@dimen/density_5"
                       app:iss_auto_cycle="true"
                       app:iss_period="10000"
                       app:iss_delay="10000"
@@ -44,7 +44,7 @@
               android:layout_height="wrap_content"
               android:textColor="@color/black"
               android:textAllCaps="false"
-              android:layout_margin="10dp"
+              android:layout_margin="@dimen/density_10"
               android:fontFamily="sans-serif"
               android:id="@+id/locationshowId2"
               />
@@ -52,25 +52,25 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:layout_margin="5dp"
+              android:layout_margin="@dimen/density_5"
               android:layout_gravity="center"
               >
 
               <androidx.appcompat.widget.AppCompatButton
                   android:id="@+id/descriptionBtnId"
-                  android:layout_width="110dp"
-                  android:layout_height="40dp"
-                  android:text="Description"
+                  android:layout_width="@dimen/density_110"
+                  android:layout_height="@dimen/density_40"
+                  android:text="@string/des_text"
                   android:background="@drawable/round_shape"
                   android:textAllCaps="false"
                   android:textColor="@color/black" />
               <androidx.appcompat.widget.AppCompatButton
-                  android:layout_width="110dp"
-                  android:layout_height="40dp"
-                  android:text="Review"
+                  android:layout_width="@dimen/density_110"
+                  android:layout_height="@dimen/density_40"
+                  android:text="@string/review_text"
                   android:textColor="@color/black"
                   android:textAllCaps="false"
-                  android:layout_marginLeft="80dp"
+                  android:layout_marginStart="@dimen/density_80"
                   android:id="@+id/reviewButtonId"
                   android:background="@drawable/rectangle_shape"
                   />
@@ -87,7 +87,7 @@
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:orientation="vertical"
-                      android:layout_margin="5dp"
+                      android:layout_margin="@dimen/density_5"
                       android:id="@+id/descriptionsLayoutId"
                       android:visibility="visible"
                       >
@@ -110,7 +110,7 @@
                           android:layout_width="match_parent"
                           android:layout_height="match_parent"
                           android:id="@+id/commentRecyclerId"
-                          android:layout_margin="5dp"
+                          android:layout_margin="@dimen/density_5"
                           />
                   </LinearLayout>
               </LinearLayout>
@@ -121,16 +121,16 @@
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Comment"
-        android:textSize="12sp"
+        android:text="@string/addcomment_text"
+        android:textSize="@dimen/sp_12"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:layout_gravity="end|bottom"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="@dimen/density_20"
         android:id="@+id/addCommentBtnId"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="@dimen/density_50"
+        android:layout_marginTop="@dimen/density_10"
+        android:layout_marginStart="@dimen/density_10"
         />
 </FrameLayout>
 </layout>

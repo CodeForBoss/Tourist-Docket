@@ -8,41 +8,42 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="4dp"
-        android:layout_margin="5dp"
+        app:cardCornerRadius="@dimen/density_10"
+        app:cardElevation="@dimen/density_4"
+        android:layout_margin="@dimen/density_5"
         android:id="@+id/commentCardId"
         >
        <RelativeLayout
            android:layout_width="match_parent"
-           android:layout_margin="5dp"
+           android:layout_margin="@dimen/density_5"
            android:layout_height="wrap_content">
 
            <ImageView
+               android:contentDescription="@string/image_content_des"
                android:id="@+id/showProfilePicId"
-               android:layout_width="50dp"
-               android:layout_height="50dp"
-               android:padding="5dp"
+               android:layout_width="@dimen/density_50"
+               android:layout_height="@dimen/density_50"
+               android:padding="@dimen/density_5"
                android:scaleType="fitXY"
                android:src="@drawable/profile" />
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_toEndOf="@id/showProfilePicId"
-               android:layout_margin="5dp"
-               android:textColor="#FF914D"
+               android:layout_margin="@dimen/density_5"
+               android:textColor="@color/mainColor"
                android:textAllCaps="false"
-               android:textSize="14sp"
                android:id="@+id/showUserNameId"
               />
 
            <ImageButton
+               android:contentDescription="@string/image_content_des"
                android:id="@+id/verifyIconId"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_alignParentEnd="true"
                android:background="@null"
-               android:padding="5dp"
+               android:padding="@dimen/density_5"
                android:src="@drawable/verify_icon" />
 
 
@@ -52,9 +53,9 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_below="@id/showUserNameId"
-               android:layout_marginLeft="25dp"
-               android:layout_marginTop="5dp"
-               android:layout_marginBottom="5dp"
+               android:layout_marginStart="@dimen/density_25"
+               android:layout_marginTop="@dimen/density_5"
+               android:layout_marginBottom="@dimen/density_5"
                android:isIndicator="true"
                android:numStars="5"
                android:scaleX="0.7"
@@ -64,8 +65,7 @@
                android:layout_height="wrap_content"
                android:textColor="@color/black"
                android:textAllCaps="false"
-               android:textSize="14sp"
-               android:layout_margin="5dp"
+               android:layout_margin="@dimen/density_5"
                android:id="@+id/showcommentId3"
                android:layout_below="@id/showRatingId"
                android:layout_toEndOf="@id/showProfilePicId"

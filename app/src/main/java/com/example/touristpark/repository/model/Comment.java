@@ -11,6 +11,10 @@ public class Comment {
         this.rating = rating;
     }
 
+    public Comment(){
+
+    }
+
     public float getRating() {
         return rating;
     }

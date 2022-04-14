@@ -26,9 +26,9 @@ public class SignInFragment extends Fragment {
     private TouristParkViewModel touristParkViewModel;
     ArrayList<User> allUser = new ArrayList<>();
     private User singleUser = new User();
-    private Bundle bundle = new Bundle();
+    private final Bundle bundle = new Bundle();
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(inflater,container,false);

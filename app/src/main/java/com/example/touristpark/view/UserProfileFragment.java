@@ -28,7 +28,7 @@ public class UserProfileFragment extends Fragment {
     private static final int IMAGE_REQUEST = 1;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentUserProfileBinding.inflate(inflater,container,false);
@@ -57,7 +57,9 @@ public class UserProfileFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle!=null){
             user = bundle.getParcelable("userProfile");
-            Glide.with(getContext()).load(user.getProfileImageUri()).into(binding.profilepicId7);
+            if(getContext()!=null){
+                Glide.with(getContext()).load(user.getProfileImageUri()).into(binding.profilepicId7);
+            }
         }
     }
 

@@ -21,7 +21,7 @@ public class HomeFragment extends Fragment {
     Bundle bundle = new Bundle();
     User user = new User("Anonymous","ano");
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater,container,false);
@@ -36,25 +36,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void listeners(){
-        binding.signupId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_sign_up_frag);
-            }
+        binding.signupId.setOnClickListener(view -> Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_sign_up_frag));
+        binding.anonomousId.setOnClickListener(view -> {
+            bundle.putParcelable("userParcel",user);
+            Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_homeuser_frag,bundle);
         });
-        binding.anonomousId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bundle.putParcelable("userParcel",user);
-                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_homeuser_frag,bundle);
-            }
-        });
-        binding.signInId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_signin_frag);
-            }
-        });
+        binding.signInId.setOnClickListener(view -> Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.home_frag_to_signin_frag));
     }
 
     private void underLineText(){

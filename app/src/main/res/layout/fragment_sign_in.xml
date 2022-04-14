@@ -11,19 +11,20 @@
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <ImageView
+                    android:contentDescription="@string/image_content_des"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="@dimen/density_250"
                     android:src="@drawable/logo"
                     />
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="4dp"
-                    android:layout_margin="20dp"
+                    app:cardCornerRadius="@dimen/density_10"
+                    app:cardElevation="@dimen/density_4"
+                    android:layout_margin="@dimen/density_20"
                     android:layout_gravity="center"
                     >
                     <LinearLayout
@@ -38,8 +39,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/email_icon"
-                            android:drawablePadding="10dp"
-                            android:hint="Email"
+                            android:drawablePadding="@dimen/density_10"
+                            android:hint="@string/email_text"
                             android:textAllCaps="false"
                             android:textColor="@color/black" />
 
@@ -47,10 +48,10 @@
                             android:id="@+id/passwordSignInId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="@dimen/density_12"
                             android:drawableStart="@drawable/lock_icon"
-                            android:drawablePadding="10dp"
-                            android:hint="Password"
+                            android:drawablePadding="@dimen/density_10"
+                            android:hint="@string/password_text"
                             android:inputType="textPassword"
                             android:textAllCaps="false"
                             android:textColor="@color/black" />
@@ -58,11 +59,11 @@
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/signInBtnId"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_height="@dimen/density_40"
+                            android:layout_marginTop="@dimen/density_20"
+                            android:layout_marginBottom="@dimen/density_5"
                             android:background="@drawable/round_shape"
-                            android:text="Sign In"
+                            android:text="@string/sign_in"
                             android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textColor="@color/white" />
