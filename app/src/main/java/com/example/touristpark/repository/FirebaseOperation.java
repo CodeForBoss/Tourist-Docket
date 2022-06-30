@@ -11,9 +11,9 @@ import android.webkit.MimeTypeMap;
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 
-import com.example.touristpark.R;
 import com.example.touristpark.repository.model.Place;
 import com.example.touristpark.repository.model.User;
+import com.example.touristpark.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;

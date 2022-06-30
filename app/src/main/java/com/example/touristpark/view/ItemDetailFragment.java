@@ -56,7 +56,7 @@ public class ItemDetailFragment extends Fragment implements CommentListener{
         listeners();
     }
     private void listeners(){
-        binding.descriptionBtnId.setOnClickListener(view -> {
+      /*  binding.descriptionBtnId.setOnClickListener(view -> {
             if(binding.reviewsLayoutId.getVisibility() == View.VISIBLE){
                 binding.reviewsLayoutId.setVisibility(View.GONE);
                 binding.reviewButtonId.setBackground(getResources().getDrawable(R.drawable.rectangle_shape));
@@ -72,7 +72,7 @@ public class ItemDetailFragment extends Fragment implements CommentListener{
             binding.reviewsLayoutId.setVisibility(View.VISIBLE);
             binding.reviewButtonId.setBackground(getResources().getDrawable(R.drawable.round_shape));
         });
-
+*/
         binding.addCommentBtnId.setOnClickListener(view -> addCommentAlertDialog());
     }
 
